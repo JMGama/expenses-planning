@@ -3,7 +3,7 @@ import { MdAttachMoney } from "react-icons/md";
 
 export const MoneyCard = props => (
   <div className="text-center">
-    <div className="font-weight-light">
+    <div className="font-weight-normal">
       <span>{props.text}</span>
     </div>
 
