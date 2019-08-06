@@ -1,13 +1,16 @@
 import React from "react";
 import { MoneyCard } from "../MoneyCard";
 import { FaPlus } from "react-icons/fa";
+import Card from "react-bootstrap/Card";
+import Row from "react-bootstrap/Row";
+import Dropdown from "react-bootstrap/Dropdown";
 
 export const StatusBar = () => (
-  <div className="card border-0 shadow">
-    <div className="card-body p-3 container">
-      <div className="row align-items-center">
+  <Card className="shadow">
+    <Card.Body className="p-3 container">
+      <Row className="align-items-center">
         <div className="col-6">
-          <div className="row">
+          <Row>
             <div className="col">
               <MoneyCard
                 value="16,000.00"
@@ -31,9 +34,23 @@ export const StatusBar = () => (
                 border="border-primary"
               />
             </div>
-          </div>
+          </Row>
         </div>
-      </div>
-    </div>
-  </div>
+        <div className="col-6 text-right">
+          <Dropdown>
+            <Dropdown.Toggle variant="outline-info" id="dropdown-basic">
+              <FaPlus />
+              <span className="align-middle mr-1 font-weight-bold"> Add</span>
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item href="#/action-1">Income</Dropdown.Item>
+              <Dropdown.Item href="#/action-2">Outcome</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Estimation</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+      </Row>
+    </Card.Body>
+  </Card>
 );
