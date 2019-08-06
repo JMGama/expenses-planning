@@ -1,43 +1,45 @@
 import React from "react";
 import { SmallText } from "./styles";
+import Card from "react-bootstrap/Card";
+import Row from "react-bootstrap/Row";
 
 export const ExpensesCardHeader = props => (
-  <div className="card-header ">
-    <div className="row">
+  <Card.Header className="card-header ">
+    <Row>
       <div className="col-4 font-weight-bold">{props.month}</div>
       <div className="col-8 font-weight-light">
-        <div className="row align-middle">
+        <Row className="align-middle">
           <SmallText className="col my-1 mx-1 px-0 align-middle text-right">
             Income
           </SmallText>
-          <div className="card border-1 border-success my-1 mr-1 text-center col">
+          <Card border="success" className="my-1 mr-1 text-center col">
             <SmallText className="align-middle">
               ${props.values.income}
             </SmallText>
-          </div>
-        </div>
+          </Card>
+        </Row>
 
-        <div className="row align-middle">
+        <Row className="align-middle">
           <SmallText className="col my-1 mx-1 px-0 align-middle text-right">
             Outcome
           </SmallText>
-          <div className="card border-1 border-danger my-1 mr-1 text-center col">
+          <Card border="danger" className="my-1 mr-1 text-center col">
             <SmallText className="align-middle">
               ${props.values.outcome}
             </SmallText>
-          </div>
-        </div>
-        <div className="row align-middle">
+          </Card>
+        </Row>
+        <Row className="align-middle">
           <SmallText className="col my-1 mx-1 px-0 align-middle text-right">
             Balance
           </SmallText>
-          <div className="card border-1 border-primary my-1 mr-1 text-center col">
+          <Card border="primary" className="my-1 mr-1 text-center col">
             <SmallText className="align-middle">
               ${props.values.balance}
             </SmallText>
-          </div>
-        </div>
+          </Card>
+        </Row>
       </div>
-    </div>
-  </div>
+    </Row>
+  </Card.Header>
 );
