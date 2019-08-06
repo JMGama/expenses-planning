@@ -1,26 +1,23 @@
 import React from "react";
-import { Navbar } from "../Navbar";
-import { Card } from "../Card";
+import { NavigationBar } from "../NavigationBar";
 import { StatusBar } from "../StatusBar";
 import { ExpensesCard } from "../ExpensesCard";
 
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
 export const App = () => (
   <div>
-    <Navbar />
-    <div className="container">
-      <div className="row mb-4">
-        <div className="col">
-          <Card />
-        </div>
-      </div>
-
-      <div className="row my-4">
-        <div className="col">
+    <NavigationBar />
+    <Container>
+      <Row className="my-4">
+        <Col>
           <StatusBar />
-        </div>
-      </div>
+        </Col>
+      </Row>
 
-      <div className="row my-4 card-deck ">
+      <Row className="my-4 card-deck ">
         {/* This div can have a max of 3 Expenses cards, if there are more you need to create another div */}
         <ExpensesCard
           month="August"
@@ -46,7 +43,7 @@ export const App = () => (
             balance: "2,000.00"
           }}
         />
-      </div>
-    </div>
+      </Row>
+    </Container>
   </div>
 );
