@@ -28,21 +28,6 @@ export const ExpensesTable = () => (
           <td>12/05/19</td>
           <td>$12,000.00</td>
         </tr>
-        <tr>
-          <td>4</td>
-          <td>12/05/19</td>
-          <td>$12,000.00</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>12/05/19</td>
-          <td>$12,000.00</td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>12/05/19</td>
-          <td>$12,000.00</td>
-        </tr>
         <tr className="text-right font-weight-bold">
           <td>...</td>
           <td>...</td>

@@ -8,6 +8,12 @@ export const ExpensesCard = props => (
     <ExpensesCardHeader month={props.month} values={props.values} />
 
     <Card.Body className="p-2">
+      <h6 className="ml-3">Incomes</h6>
+      <ExpensesTable />
+    </Card.Body>
+
+    <Card.Body className="p-2">
+      <h6 className="ml-3">Outcomes</h6>
       <ExpensesTable />
     </Card.Body>
   </Card>
