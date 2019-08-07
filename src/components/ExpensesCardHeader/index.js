@@ -2,11 +2,27 @@ import React from "react";
 import { SmallText } from "./styles";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import { FiEdit } from "react-icons/fi";
 
 export const ExpensesCardHeader = props => (
   <Card.Header className="card-header ">
     <Row>
-      <div className="col-4 font-weight-bold">{props.month}</div>
+      <div className="col-4 font-weight-bold mb-0">
+        <Row>
+          <Col>{props.month}</Col>
+        </Row>
+
+        <Row className="mt-4 mb-0">
+          <Col>
+            <Button variant="info" size="sm">
+              <FiEdit className="align-middle" />{" "}
+              <span className="align-middle mr-1">Edit</span>
+            </Button>
+          </Col>
+        </Row>
+      </div>
       <div className="col-8 font-weight-light">
         <Row className="align-middle">
           <SmallText className="col my-1 mx-1 px-0 align-middle text-right">
