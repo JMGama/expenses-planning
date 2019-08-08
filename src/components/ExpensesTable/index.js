@@ -3,7 +3,7 @@ import Table from "react-bootstrap/Table";
 import Card from "react-bootstrap/Card";
 
 export const ExpensesTable = () => (
-  <Card className="mx-0 my-0">
+  <Card className=" shadow mx-0 my-0">
     <Table responsive striped bordered hover size="sm" className="mb-0">
       <thead>
         <tr>

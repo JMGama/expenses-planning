@@ -16,7 +16,7 @@ export const ExpensesCardHeader = props => (
 
         <Row className="mt-4 mb-0">
           <Col>
-            <Button variant="info" size="sm">
+            <Button variant="info" size="sm" className="shadow">
               <FiEdit className="align-middle" />{" "}
               <span className="align-middle mr-1">Edit</span>
             </Button>
@@ -28,7 +28,7 @@ export const ExpensesCardHeader = props => (
           <SmallText className="col my-1 mx-1 px-0 align-middle text-right">
             Income
           </SmallText>
-          <Card border="success" className="my-1 mr-1 text-center col">
+          <Card border="success" className="shadow my-1 mr-1 text-center col">
             <SmallText className="align-middle">
               ${props.values.income}
             </SmallText>
@@ -39,7 +39,7 @@ export const ExpensesCardHeader = props => (
           <SmallText className="col my-1 mx-1 px-0 align-middle text-right">
             Outcome
           </SmallText>
-          <Card border="danger" className="my-1 mr-1 text-center col">
+          <Card border="danger" className="shadow my-1 mr-1 text-center col">
             <SmallText className="align-middle">
               ${props.values.outcome}
             </SmallText>
@@ -49,7 +49,7 @@ export const ExpensesCardHeader = props => (
           <SmallText className="col my-1 mx-1 px-0 align-middle text-right">
             Balance
           </SmallText>
-          <Card border="primary" className="my-1 mr-1 text-center col">
+          <Card border="primary" className="shadow my-1 mr-1 text-center col">
             <SmallText className="align-middle">
               ${props.values.balance}
             </SmallText>

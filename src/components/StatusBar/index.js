@@ -1,6 +1,6 @@
 import React from "react";
 import { MoneyCard } from "../MoneyCard";
-import { FaPlus } from "react-icons/fa";
+import { FiPlus } from "react-icons/fi";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -38,9 +38,13 @@ export const StatusBar = () => (
         </div>
         <div className="col-6 text-right">
           <Dropdown>
-            <Dropdown.Toggle variant="outline-info" id="dropdown-basic">
-              <FaPlus />
-              <span className="align-middle mr-1 font-weight-bold"> Add</span>
+            <Dropdown.Toggle
+              variant="info"
+              id="dropdown-basic"
+              className="shadow"
+            >
+              <FiPlus className="align-middle" />{" "}
+              <span className="align-middle mr-1">Add</span>
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
