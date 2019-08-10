@@ -1,5 +1,6 @@
 import React from "react";
 import { NavigationBar } from "../NavigationBar";
+import { NewValueCard } from "../NewValueCard";
 import { StatusBar } from "../StatusBar";
 import { ExpensesCard } from "../ExpensesCard";
 
@@ -10,14 +11,21 @@ import Col from "react-bootstrap/Col";
 export const App = () => (
   <div>
     <NavigationBar />
+
     <Container>
-      <Row>
+      <Row className="mt-4">
         <Col>
           <StatusBar />
         </Col>
       </Row>
 
-      <Row className="card-deck my-sm-4">
+      <Row className="my-3">
+        <Col>
+          <NewValueCard />
+        </Col>
+      </Row>
+
+      <Row className="card-deck my-3">
         {/* This div can have a max of 3 Expenses cards, if there are more you need to create another div */}
         <ExpensesCard
           month="August"
