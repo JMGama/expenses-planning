@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 
 export const NavigationBar = () => (
-  <Navbar expand="lg" bg="light" static="top" className="mb-5 shadow">
+  <Navbar expand="lg" bg="light" static="top" className="shadow">
     <Container>
       <Navbar.Brand href="/">Expenses Planning</Navbar.Brand>
       <Navbar.Toggle
