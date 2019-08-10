@@ -11,13 +11,13 @@ export const App = () => (
   <div>
     <NavigationBar />
     <Container>
-      <Row className="my-4">
+      <Row>
         <Col>
           <StatusBar />
         </Col>
       </Row>
 
-      <Row className="my-4 card-deck ">
+      <Row className="card-deck my-sm-4">
         {/* This div can have a max of 3 Expenses cards, if there are more you need to create another div */}
         <ExpensesCard
           month="August"
