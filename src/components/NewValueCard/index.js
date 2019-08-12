@@ -45,7 +45,7 @@ export const NewValueCard = () => {
       <Card.Body className="container pt-1 pb-2 ">
         <Form className="mt-2">
           <Form.Row>
-            <Col sm="2" xs="12">
+            <Col sm="2 my-sm-0" xs="12 my-1">
               <InputGroup className="shadow" size="sm">
                 <InputGroup.Prepend>
                   <InputGroup.Text>
@@ -60,7 +60,7 @@ export const NewValueCard = () => {
               </InputGroup>
             </Col>
 
-            <Col sm="4" xs="12">
+            <Col sm="4 my-sm-0" xs="12 my-1">
               <Form.Control
                 type="text"
                 placeholder="Description"
@@ -71,7 +71,7 @@ export const NewValueCard = () => {
               />
             </Col>
 
-            <Col sm="2" xs="12">
+            <Col sm="2 my-sm-0" xs="12 my-1">
               <Form.Control
                 as="select"
                 className={
@@ -93,7 +93,7 @@ export const NewValueCard = () => {
               </Form.Control>
             </Col>
 
-            <Col sm="2" xs="6">
+            <Col sm="2 my-sm-0" xs="6 my-1">
               <DayPickerInput
                 formatDate={formatDate}
                 format={FORMAT}
@@ -101,12 +101,13 @@ export const NewValueCard = () => {
                 placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
                 inputProps={{
                   className:
-                    "shadow form-control form-control-sm text-center font-weight-normal"
+                    "shadow form-control-sm text-center form-control-plaintext border font-weight-normal",
+                  readOnly: true
                 }}
               />
             </Col>
 
-            <Col sm="2" xs="6">
+            <Col sm="2 my-sm-0" xs="6 my-1">
               <Button variant="success" className="shadow" size="sm" block>
                 <FiPlus className="align-middle" />{" "}
                 <span className="align-middle mr-1">Add</span>
