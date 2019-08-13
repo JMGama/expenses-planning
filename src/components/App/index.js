@@ -1,12 +1,13 @@
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Layout } from "../../components/Layout";
-import { Home } from "../../pages/Home";
+import { NotFound } from "../../pages/NotFound";
 
 export const App = () => (
   <BrowserRouter>
-    <Layout>
-      <Route path="/" component={Home} />
-    </Layout>
+    <Switch>
+      <Route exact path="/" component={Layout} />
+      <Route component={NotFound} />
+    </Switch>
   </BrowserRouter>
 );

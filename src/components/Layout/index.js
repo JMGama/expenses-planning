@@ -1,17 +1,18 @@
-import React from "react";
+import React, { Fragment } from "react";
+import { Route } from "react-router-dom";
 
 import { NavigationBar } from "../../components/NavigationBar";
 import { NewValueCard } from "../../components/NewValueCard";
 import { StatusBar } from "../../components/StatusBar";
+import { Home } from "../../pages/Home";
 
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-export const Layout = props => {
-  const children = props.children;
+export const Layout = ({ match }) => {
   return (
-    <div>
+    <Fragment>
       <NavigationBar />
 
       <Container>
@@ -27,8 +28,8 @@ export const Layout = props => {
           </Col>
         </Row>
 
-        {props.children}
+        <Route exact path={match.path} component={Home} />
       </Container>
-    </div>
+    </Fragment>
   );
 };
