@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 
 export const StatusBar = () => (
   <Card className="shadow col-12">
-    <Card.Body className="p-3 container">
+    <Card.Body className="p-2 container">
       <Row>
         <Col>
           <MoneyCard value="16,000.00" text="Income" border="border-success" />

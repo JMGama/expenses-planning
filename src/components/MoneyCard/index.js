@@ -1,17 +1,20 @@
 import React from "react";
-import { FiDollarSign } from "react-icons/fi";
+import { SmallText } from "./styles";
+
+import Card from "react-bootstrap/Card";
 
 export const MoneyCard = props => (
   <div className="text-center">
     <div className="font-weight-normal">
-      <span>{props.text}</span>
+      <SmallText>{props.text}</SmallText>
     </div>
 
-    <div className={"shadow d-inline-flex rounded my-1 border " + props.border}>
-      <div className="align-middle p-1">
-        <FiDollarSign className="align-middle" />{" "}
-        <span className="align-middle mr-1">{props.value}</span>
-      </div>
-    </div>
+    <Card
+      className={
+        "shadow inline-fled-x my-1 mr-1 text-center col border " + props.border
+      }
+    >
+      <SmallText className="align-middle">${props.value}</SmallText>
+    </Card>
   </div>
 );
