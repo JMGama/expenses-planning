@@ -1,10 +1,13 @@
 import React from "react";
+
 import { SmallText } from "./styles";
+import { FiEdit } from "react-icons/fi";
+import { Link } from "react-router-dom";
+
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
-import { FiEdit } from "react-icons/fi";
 
 export const ExpensesCardHeader = props => (
   <Card.Header className="card-header ">
@@ -16,10 +19,12 @@ export const ExpensesCardHeader = props => (
 
         <Row className="mt-4 mb-0">
           <Col>
-            <Button variant="info" size="sm" className="shadow">
-              <FiEdit className="align-middle" />{" "}
-              <span className="align-middle mr-1">Edit</span>
-            </Button>
+            <Link to="/month">
+              <Button variant="info" size="sm" className="shadow">
+                <FiEdit className="align-middle" />{" "}
+                <span className="align-middle mr-1">Edit</span>
+              </Button>
+            </Link>
           </Col>
         </Row>
       </div>

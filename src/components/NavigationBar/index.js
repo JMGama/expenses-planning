@@ -1,4 +1,7 @@
 import React from "react";
+
+import { Link, NavLink } from "react-router-dom";
+
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -6,7 +9,9 @@ import Nav from "react-bootstrap/Nav";
 export const NavigationBar = () => (
   <Navbar expand="lg" bg="light" static="top" className="shadow">
     <Container>
-      <Navbar.Brand href="/">Expenses Planning</Navbar.Brand>
+      <Link to="/">
+        <Navbar.Brand>Expenses Planning</Navbar.Brand>
+      </Link>
       <Navbar.Toggle
         aria-controls="responsive-navbar-nav"
         aria-expanded="false"
@@ -15,19 +20,19 @@ export const NavigationBar = () => (
       </Navbar.Toggle>
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto">
-          <Nav.Link className="active" href="/">
+          <Nav.Link as={NavLink} to="/home">
             Home
           </Nav.Link>
 
-          <Nav.Link className="" href="/">
-            About
+          <Nav.Link as={NavLink} to="/month">
+            Month
           </Nav.Link>
 
-          <Nav.Link className="" href="/">
+          <Nav.Link as={NavLink} to="/">
             Services
           </Nav.Link>
 
-          <Nav.Link className="" href="/">
+          <Nav.Link as={NavLink} to="/">
             Contact
           </Nav.Link>
         </Nav>
