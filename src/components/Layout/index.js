@@ -1,17 +1,19 @@
 import React, { Fragment } from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import { NavigationBar } from "../../components/NavigationBar";
 import { NewValueCard } from "../../components/NewValueCard";
 import { StatusBar } from "../../components/StatusBar";
 import { Home } from "../../pages/Home";
 import { Month } from "../../pages/Month";
+import { NotFound } from "../../pages/NotFound";
 
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-export const Layout = ({ match }) => {
+export const Layout = props => {
+  const children = props.children;
   return (
     <Fragment>
       <NavigationBar />
@@ -28,10 +30,35 @@ export const Layout = ({ match }) => {
           </Col>
         </Row>
 
-        <Redirect from={match.path} to="/home" exact />
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/month" component={Month} />
+        {children}
       </Container>
     </Fragment>
+  );
+};
+
+export const LayoutRouter = ({ match }) => {
+  return (
+    <Switch>
+      <Redirect from="/expenses" to={`${match.path}/home`} exact />
+      <Route
+        exact
+        path={`${match.path}/home`}
+        render={() => (
+          <Layout>
+            <Home />
+          </Layout>
+        )}
+      />
+      <Route
+        exact
+        path={`${match.path}/month`}
+        render={() => (
+          <Layout>
+            <Month />
+          </Layout>
+        )}
+      />
+      <Route component={NotFound} />
+    </Switch>
   );
 };

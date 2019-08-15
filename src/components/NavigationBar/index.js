@@ -20,11 +20,11 @@ export const NavigationBar = () => (
       </Navbar.Toggle>
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto">
-          <Nav.Link as={NavLink} to="/home">
+          <Nav.Link as={NavLink} to="/expenses/home">
             Home
           </Nav.Link>
 
-          <Nav.Link as={NavLink} to="/month">
+          <Nav.Link as={NavLink} to="/expenses/month">
             Month
           </Nav.Link>
 
