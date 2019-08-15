@@ -19,7 +19,7 @@ export const ExpensesCardHeader = props => (
 
         <Row className="mt-4 mb-0">
           <Col>
-            <Link to="/month">
+            <Link to="/expenses/month">
               <Button variant="info" size="sm" className="shadow">
                 <FiEdit className="align-middle" />{" "}
                 <span className="align-middle mr-1">Edit</span>
