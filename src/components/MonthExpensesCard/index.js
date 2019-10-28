@@ -4,11 +4,11 @@ import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
 
 
-export const MonthExpensesCard = ({ children }) => {
+export const MonthExpensesCard = ({ header }) => {
   return (
     <Card className="shadow mx-3 mx-sm-3">
       <Card.Header as="h6" className="py-2">
-        {children}
+        {header}
       </Card.Header>
       <Card.Body className="p-3">
         <Table responsive striped bordered hover size="sm" className="mb-0">
