@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-import { FiDollarSign } from "react-icons/fi";
-import { FiPlus } from "react-icons/fi";
+import { FiDollarSign, FiPlus } from "react-icons/fi";
 
 import CurrencyInput from "react-currency-input";
 
