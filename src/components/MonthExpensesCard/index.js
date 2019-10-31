@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 
 export const MonthExpensesCard = ({ header }) => {
   return (
-    <Card className="shadow mx-3 mx-sm-3">
+    <Card className="">
       <Card.Header as="h6" className="py-2">
         <Row>
           <Col className="align-self-center">{header}</Col>
@@ -64,33 +64,28 @@ export const MonthExpensesCard = ({ header }) => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="align-middle">House Monthly Rent</td>
-              <td className="align-middle">12/05/19</td>
-              <td className="align-middle">$12,000.00</td>
-              <td className="align-middle">
-                <Link to="/expenses/month" className="mx-1">
-                  <Button variant="info" size="sm" className="shadow">
-                    <FaPen className="align-middle mb-1" />
-                  </Button>
-                </Link>
-                <Link to="/expenses/month" className="mx-1">
-                  <Button variant="danger" size="sm" className="shadow">
-                    <FaTrashAlt className="align-middle mb-1" />
-                  </Button>
-                </Link>
-              </td>
-            </tr>
-            <tr>
-              <td>House Monthly Rent</td>
-              <td>12/05/19</td>
-              <td>$12,000.00</td>
-            </tr>
-            <tr>
-              <td>House Monthly Rent</td>
-              <td>12/05/19</td>
-              <td>$12,000.00</td>
-            </tr>
+            {[0, 1, 2].map((value, index) => {
+              return (
+                <tr>
+                  <td className="align-middle">House Monthly Rent</td>
+                  <td className="align-middle">12/05/19</td>
+                  <td className="align-middle">$12,000.00</td>
+                  <td className="align-middle">
+                    <Link to="/expenses/month" className="mx-1">
+                      <Button variant="info" size="sm" className="shadow">
+                        <FaPen className="align-middle mb-1" />
+                      </Button>
+                    </Link>
+                    <Link to="/expenses/month" className="mx-1">
+                      <Button variant="danger" size="sm" className="shadow">
+                        <FaTrashAlt className="align-middle mb-1" />
+                      </Button>
+                    </Link>
+                  </td>
+                </tr>
+              )
+            })
+            }
           </tbody>
         </Table>
       </Card.Body>
