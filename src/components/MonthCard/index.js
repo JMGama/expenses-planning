@@ -49,36 +49,20 @@ export const MonthCard = () => {
             </Card.Header>
             <Card.Body className="pt-0 pb-1">
               <Carousel activeIndex={month} direction={direction} controls={false} indicators={false} touch={false}>
-                <Carousel.Item>
-                  <Row>
-                    <Col className="py-3">
-                      <MonthExpensesCard header={incomeHeader} />
-                    </Col>
-                    <Col className="py-3">
-                      <MonthExpensesCard header={outcomeHeader} />
-                    </Col>
-                  </Row>
-                </Carousel.Item>
-                <Carousel.Item>
-                  <Row>
-                    <Col className="py-3">
-                      <MonthExpensesCard header={incomeHeader} />
-                    </Col>
-                    <Col className="py-3">
-                      <MonthExpensesCard header={incomeHeader} />
-                    </Col>
-                  </Row>
-                </Carousel.Item>
-                <Carousel.Item>
-                  <Row>
-                    <Col className="py-3">
-                      <MonthExpensesCard header={outcomeHeader} />
-                    </Col>
-                    <Col className="py-3">
-                      <MonthExpensesCard header={outcomeHeader} />
-                    </Col>
-                  </Row>
-                </Carousel.Item>
+                {[0, 1, 2].map((value, index) => {
+                  return (
+                    <Carousel.Item>
+                      <Row>
+                        <Col className="py-3">
+                          <MonthExpensesCard header={incomeHeader} />
+                        </Col>
+                        <Col className="py-3">
+                          <MonthExpensesCard header={outcomeHeader} />
+                        </Col>
+                      </Row>
+                    </Carousel.Item>
+                  )
+                })}
               </Carousel>
             </Card.Body>
           </Card>
