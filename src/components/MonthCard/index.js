@@ -16,7 +16,11 @@ export const MonthCard = () => {
 
   const [month, setMonth] = useState(0)
   const [direction, setDirection] = useState('next')
+  const monthsList = [0, 1, 2]
   const changeNextMonth = () => {
+    if (month === monthsList.length) {
+      None
+    }
     setMonth(month - 1)
     setDirection('prev')
 
@@ -49,7 +53,7 @@ export const MonthCard = () => {
             </Card.Header>
             <Card.Body className="pt-0 pb-1">
               <Carousel activeIndex={month} direction={direction} controls={false} indicators={false} touch={false}>
-                {[0, 1, 2].map((value, index) => {
+                {monthsList.map((value, index) => {
                   return (
                     <Carousel.Item>
                       <Row>
