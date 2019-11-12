@@ -18,16 +18,18 @@ export const MonthCard = () => {
   const [direction, setDirection] = useState('next')
   const monthsList = [0, 1, 2]
   const changeNextMonth = () => {
-    if (month === monthsList.length) {
-      None
+    console.log(month, monthsList.length)
+    if (month !== monthsList.length - 1) {
+      setMonth(month + 1)
+      setDirection('next')
     }
-    setMonth(month - 1)
-    setDirection('prev')
-
   }
   const changePrevMonth = () => {
-    setMonth(month + 1)
-    setDirection('next')
+    console.log(month, monthsList.length)
+    if (month !== 0) {
+      setMonth(month - 1)
+      setDirection('prev')
+    }
   }
   return (
     <div>
@@ -37,7 +39,7 @@ export const MonthCard = () => {
             <Card.Header as="h6" className="py-2">
               <Row>
                 <Col>
-                  <Button className="mx-1 float-left" size="sm" onClick={changeNextMonth}>
+                  <Button className="mx-1 float-left" size="sm" onClick={changePrevMonth}>
                     <IoIosArrowBack className="align-middle mb-1" />
                   </Button>
                 </Col>
@@ -45,14 +47,14 @@ export const MonthCard = () => {
                   <span className="align-middle">$DATE balance</span>
                 </Col>
                 <Col>
-                  <Button className="mx-1 float-right" size="sm" onClick={changePrevMonth}>
+                  <Button className="mx-1 float-right" size="sm" onClick={changeNextMonth}>
                     <IoIosArrowForward className="align-middle mb-1" />
                   </Button>
                 </Col>
               </Row>
             </Card.Header>
             <Card.Body className="pt-0 pb-1">
-              <Carousel activeIndex={month} direction={direction} controls={false} indicators={false} touch={false}>
+              <Carousel activeIndex={month} direction={direction} controls={false} indicators={false} touch={false} onSelect={null}>
                 {monthsList.map((value, index) => {
                   return (
                     <Carousel.Item>
