@@ -31,6 +31,7 @@ export const MonthCard = () => {
       setDirection('prev')
     }
   }
+
   return (
     <div>
       <Row>
@@ -54,7 +55,7 @@ export const MonthCard = () => {
               </Row>
             </Card.Header>
             <Card.Body className="pt-0 pb-1">
-              <Carousel activeIndex={month} direction={direction} controls={false} indicators={false} touch={false} onSelect={null}>
+              <Carousel activeIndex={month} direction={direction} controls={false} indicators={false} touch={false}>
                 {monthsList.map((value, index) => {
                   return (
                     <Carousel.Item>

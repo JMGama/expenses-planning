@@ -6,8 +6,11 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 export const StatusBar = () => (
-  <Card className="shadow col-12">
-    <Card.Body className="p-2 container">
+  <Card className="shadow">
+    <Card.Header as="h6" className="py-2">
+      General Balance
+    </Card.Header>
+    <Card.Body className="container pt-1 pb-2  card-body">
       <Row>
         <Col>
           <MoneyCard value="16,000.00" text="Income" border="border-success" />
