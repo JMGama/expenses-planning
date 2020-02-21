@@ -21,19 +21,19 @@ export const NavigationBar = () => (
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="ml-auto">
           <Nav.Link as={NavLink} to="/expenses/home">
-            Home
+            Balance
           </Nav.Link>
 
           <Nav.Link as={NavLink} to="/expenses/month">
-            Month
+            Monthly
           </Nav.Link>
 
           <Nav.Link as={NavLink} to="/">
-            Services
+            Other
           </Nav.Link>
 
           <Nav.Link as={NavLink} to="/">
-            Contact
+            Other
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

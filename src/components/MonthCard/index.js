@@ -61,10 +61,10 @@ export const MonthCard = () => {
                     <Carousel.Item>
                       <Row>
                         <Col className="py-3">
-                          <MonthExpensesCard header={incomeHeader} />
+                          <MonthExpensesCard header={outcomeHeader} />
                         </Col>
                         <Col className="py-3">
-                          <MonthExpensesCard header={outcomeHeader} />
+                          <MonthExpensesCard header={incomeHeader} />
                         </Col>
                       </Row>
                     </Carousel.Item>

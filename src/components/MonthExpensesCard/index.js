@@ -4,11 +4,10 @@ import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import { DisabledVisibleInput } from "./styles";
+import { DisabledVisibleInput, TableData } from "./styles";
 import { FaSearch, FaTrashAlt, FaPen } from 'react-icons/fa'
 
 import { Link } from "react-router-dom";
@@ -21,6 +20,11 @@ export const MonthExpensesCard = ({ header }) => {
       <Card.Header as="h6" className="py-2">
         <Row>
           <Col className="align-self-center">{header}</Col>
+        </Row>
+      </Card.Header>
+
+      <Card.Body className="p-3">
+        <Row className="mt-0 mb-2">
           <Col>
             <InputGroup size="sm">
               <InputGroup.Prepend>
@@ -35,12 +39,7 @@ export const MonthExpensesCard = ({ header }) => {
               />
             </InputGroup>
           </Col>
-        </Row>
-      </Card.Header>
-
-      <Card.Body className="p-3">
-        <Row className="mt-0 mb-2">
-          <Col md={{ offset: 6 }}>
+          <Col>
             <InputGroup size="sm">
               <InputGroup.Prepend>
                 <InputGroup.Text>
@@ -67,21 +66,17 @@ export const MonthExpensesCard = ({ header }) => {
             {[0, 1, 2].map((value, index) => {
               return (
                 <tr>
-                  <td className="align-middle">House Monthly Rent</td>
-                  <td className="align-middle">12/05/19</td>
-                  <td className="align-middle">$12,000.00</td>
-                  <td className="align-middle">
+                  <TableData className="align-middle col-md-6">House Monthly Rent</TableData>
+                  <TableData className="align-middle col-md-2">12/05/19</TableData>
+                  <TableData className="align-middle col-md-3">$12,000.00</TableData>
+                  <TableData className="align-middle col-md-1">
                     <Link to="/expenses/month" className="mx-1">
-                      <Button variant="info" size="sm" className="shadow">
-                        <FaPen className="align-middle mb-1" />
-                      </Button>
+                      <FaPen className="align-middle mb-1" />
                     </Link>
                     <Link to="/expenses/month" className="mx-1">
-                      <Button variant="danger" size="sm" className="shadow">
-                        <FaTrashAlt className="align-middle mb-1" />
-                      </Button>
+                      <FaTrashAlt className="align-middle mb-1" color="F53F3F" />
                     </Link>
-                  </td>
+                  </TableData>
                 </tr>
               )
             })
