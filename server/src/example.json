@@ -1,0 +1,44 @@
+{
+    "month": "01",
+    "year": "2020",
+    "incomes": {
+        "total": 8180.99,
+        "expenses": [
+            {
+                "description": "Work payment part 1",
+                "value": 80000.00,
+                "date": "01/01/10"
+            },
+            {
+                "description": "Friend debt",
+                "value": 180.99,
+                "date": "01/01/10"
+            }
+        ]
+    },
+    "outcomes": {
+        "total": 6610.67,
+        "expenses": [
+            {
+                "description": "House rent",
+                "value": 4000.00,
+                "date": "01/01/10"
+            },
+            {
+                "description": "Food store",
+                "value": 2000.00,
+                "date": "01/01/10"
+            },
+            {
+                "description": "Burger King with friends",
+                "value": 150.00,
+                "date": "01/01/10"
+            },
+            {
+                "description": "Dinner with gf at Diavolo",
+                "value": 460.67,
+                "date": "01/01/10"
+            }
+        ]
+    }
+}
