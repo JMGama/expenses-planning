@@ -5,7 +5,6 @@ import { FiDollarSign, FiPlus } from "react-icons/fi";
 import CurrencyInput from "react-currency-input";
 
 import DayPickerInput from "react-day-picker/DayPickerInput";
-import { DateUtils } from "react-day-picker";
 import "react-day-picker/lib/style.css";
 
 import Card from "react-bootstrap/Card";
@@ -15,26 +14,36 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import dateFnsFormat from "date-fns/format";
-import dateFnsParse from "date-fns/parse";
-
-function parseDate(str, format, locale) {
-  const parsed = dateFnsParse(str, format, { locale });
-  if (DateUtils.isDate(parsed)) {
-    return parsed;
-  }
-  return undefined;
-}
 
 function formatDate(date, format, locale) {
   return dateFnsFormat(date, format, { locale });
 }
 
 export const NewValueCard = () => {
+  const DATE_FORMAT = "DD/MM/YYYY";
+
   const [selectedValue, setSelectedValue] = useState("Income");
   const [amount, setAmount] = useState(0.0);
-  const [description, setDescription] = useState("");
+  const [amountValid, setAmountValid] = useState('');
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState(dateFnsFormat(new Date(), DATE_FORMAT))
 
-  const FORMAT = "MM/DD/YYYY";
+  const handleDayChange = (selectedDay, modifiers, DayPickerInput) => {
+    setDate(DayPickerInput.state.value)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (amount < 0.01) {
+      setAmountValid('is-invalid')
+    }
+    else {
+      setAmountValid('')
+      setAmount(0.0)
+      setDescription('')
+    }
+    console.log(amount, description, selectedValue, date)
+  }
 
   return (
     <Card className="shadow">
@@ -42,19 +51,20 @@ export const NewValueCard = () => {
         Add New Income/Outcome
       </Card.Header>
       <Card.Body className="container pt-1 pb-2 ">
-        <Form className="mt-2">
+        <Form className="mt-2" onSubmit={handleSubmit}>
           <Form.Row>
             <Col sm="2 my-sm-0" xs="12 my-1">
               <InputGroup className="shadow" size="sm">
                 <InputGroup.Prepend>
-                  <InputGroup.Text>
+                  <InputGroup.Text id="inputGroupPrepend">
                     <FiDollarSign className="align-middle" />
                   </InputGroup.Text>
                 </InputGroup.Prepend>
                 <CurrencyInput
-                  className="form-control"
+                  className={`form-control ${amountValid}`}
                   value={amount}
                   onChange={(event, value) => setAmount(value)}
+                  aria-describedby="inputGroupPrepend"
                 />
               </InputGroup>
             </Col>
@@ -95,9 +105,10 @@ export const NewValueCard = () => {
             <Col sm="2 my-sm-0" xs="6 my-1">
               <DayPickerInput
                 formatDate={formatDate}
-                format={FORMAT}
-                parseDate={parseDate}
-                placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
+                format={DATE_FORMAT}
+                value={date}
+                placeholder={`${dateFnsFormat(new Date(), DATE_FORMAT)}`}
+                onDayChange={handleDayChange}
                 inputProps={{
                   className:
                     "shadow form-control-sm text-center form-control-plaintext border font-weight-normal",
@@ -107,7 +118,7 @@ export const NewValueCard = () => {
             </Col>
 
             <Col sm="2 my-sm-0" xs="6 my-1">
-              <Button variant="success" className="shadow" size="sm" block>
+              <Button type="submit" variant="success" className="shadow" size="sm" block>
                 <FiPlus className="align-middle" />{" "}
                 <span className="align-middle mr-1">Add</span>
               </Button>
