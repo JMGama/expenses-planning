@@ -8,3 +8,8 @@ export const DisabledVisibleInput = styled(CurrencyInput)`
 export const TableData = styled.td`
   font-size: 14px;
 `;
+
+export const TableContent = styled.div`
+  height: 43vh;
+  overflow-y: auto;
+`;

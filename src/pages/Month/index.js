@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MonthCard } from "../../components/MonthCard";
+import MonthCard from "../../components/MonthCard";
 
 export const Month = () => {
   return (

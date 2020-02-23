@@ -7,14 +7,14 @@ import FormControl from "react-bootstrap/FormControl";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import { DisabledVisibleInput, TableData } from "./styles";
+import { DisabledVisibleInput, TableData, TableContent } from "./styles";
 import { FaSearch, FaTrashAlt, FaPen } from 'react-icons/fa'
 
 import { Link } from "react-router-dom";
 
 
 
-export const MonthExpensesCard = ({ header }) => {
+export const MonthExpensesCard = ({ header, monthData }) => {
   return (
     <Card className="">
       <Card.Header as="h6" className="py-2">
@@ -34,7 +34,7 @@ export const MonthExpensesCard = ({ header }) => {
               </InputGroup.Prepend>
               <DisabledVisibleInput
                 className="form-control"
-                value="100"
+                value={monthData.total}
                 disabled
               />
             </InputGroup>
@@ -54,34 +54,36 @@ export const MonthExpensesCard = ({ header }) => {
           </Col>
         </Row>
         <Table responsive striped bordered hover size="sm" className="mb-0">
-          <thead>
-            <tr>
-              <th>Description</th>
-              <th>Date</th>
-              <th>Value</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[0, 1, 2].map((value, index) => {
-              return (
-                <tr>
-                  <TableData className="align-middle col-md-6">House Monthly Rent</TableData>
-                  <TableData className="align-middle col-md-2">12/05/19</TableData>
-                  <TableData className="align-middle col-md-3">$12,000.00</TableData>
-                  <TableData className="align-middle col-md-1">
-                    <Link to="/expenses/month" className="mx-1">
-                      <FaPen className="align-middle mb-1" />
-                    </Link>
-                    <Link to="/expenses/month" className="mx-1">
-                      <FaTrashAlt className="align-middle mb-1" color="F53F3F" />
-                    </Link>
-                  </TableData>
-                </tr>
-              )
-            })
-            }
-          </tbody>
+          <TableContent>
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Value</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {monthData.expenses.map((expense, index) => {
+                return (
+                  <tr>
+                    <TableData className="align-middle col-md-6 text-left">{expense.description}</TableData>
+                    <TableData className="align-middle col-md-2">{expense.date}</TableData>
+                    <TableData className="align-middle col-md-3">{`$${expense.value.toFixed(2)}`}</TableData>
+                    <TableData className="align-middle col-md-1">
+                      <Link to="/expenses/month" className="mx-1">
+                        <FaPen className="align-middle mb-1" />
+                      </Link>
+                      <Link to="/expenses/month" className="mx-1">
+                        <FaTrashAlt className="align-middle mb-1" color="F53F3F" />
+                      </Link>
+                    </TableData>
+                  </tr>
+                )
+              })
+              }
+            </tbody>
+          </TableContent>
         </Table>
       </Card.Body>
     </Card >
