@@ -14,7 +14,8 @@ import { Link } from "react-router-dom";
 
 
 
-export const MonthExpensesCard = ({ header, monthData }) => {
+export const MonthExpensesCard = ({ header, expenses, total }) => {
+  console.log(expenses)
   return (
     <Card className="">
       <Card.Header as="h6" className="py-2">
@@ -34,7 +35,7 @@ export const MonthExpensesCard = ({ header, monthData }) => {
               </InputGroup.Prepend>
               <DisabledVisibleInput
                 className="form-control"
-                value={monthData.total}
+                value={total}
                 disabled
               />
             </InputGroup>
@@ -64,7 +65,7 @@ export const MonthExpensesCard = ({ header, monthData }) => {
               </tr>
             </thead>
             <tbody>
-              {monthData.expenses.map((expense, index) => {
+              {expenses.map((expense, index) => {
                 return (
                   <tr>
                     <TableData className="align-middle col-md-6 text-left">{expense.description}</TableData>

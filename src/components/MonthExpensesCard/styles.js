@@ -10,6 +10,6 @@ export const TableData = styled.td`
 `;
 
 export const TableContent = styled.div`
-  height: 43vh;
+  height: 41vh;
   overflow-y: auto;
 `;

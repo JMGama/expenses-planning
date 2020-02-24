@@ -20,7 +20,7 @@ function formatDate(date, format, locale) {
 }
 
 export const NewValueCard = () => {
-  const DATE_FORMAT = "DD/MM/YYYY";
+  const DATE_FORMAT = "YYYY/MM/DD";
 
   const [selectedValue, setSelectedValue] = useState("Income");
   const [amount, setAmount] = useState(0.0);
@@ -38,11 +38,27 @@ export const NewValueCard = () => {
       setAmountValid('is-invalid')
     }
     else {
+      let data = {
+        type: selectedValue,
+        amount,
+        description,
+        date
+      }
+      fetch(
+        `http://localhost:3001/api/months`,
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          }
+        }
+      )
       setAmountValid('')
       setAmount(0.0)
       setDescription('')
     }
-    console.log(amount, description, selectedValue, date)
   }
 
   return (

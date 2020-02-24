@@ -18,6 +18,8 @@ export default class MonthCard extends React.Component {
       "direction": "next",
       "monthList": [],
       "monthData": {},
+      "incomes": [],
+      "outcomes": [],
       "monthId": null,
       "loading": true
     }
@@ -48,11 +50,23 @@ export default class MonthCard extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.state.monthId !== prevState.monthId) {
       this.setState({ loading: true })
+
       this.fetchData(`http://localhost:3001/api/months/${this.state.monthId}`, "GET")
         .then(res => res.json())
         .then(response => {
           this.setState({ monthData: response })
-          this.setState({ loading: false })
+        })
+        .then(() => {
+          this.fetchData(`http://localhost:3001/api/expenses/month/${this.state.monthId}`, "GET")
+            .then(res => res.json())
+            .then(response => {
+              const incomes = response.filter(item => item.type === "income")
+              const outcomes = response.filter(item => item.type === "outcome")
+              console.log(response)
+              this.setState({ incomes })
+              this.setState({ outcomes })
+              this.setState({ loading: false })
+            })
         })
         .catch(error => console.log(error));
     }
@@ -91,7 +105,7 @@ export default class MonthCard extends React.Component {
                     </Button>
                   </Col>
                   <Col>
-                    <span className="align-middle">{this.state.monthData.month}/{this.state.monthData.year}</span>
+                    <span className="align-middle">...</span>
                   </Col>
                   <Col>
                     <Button className="mx-1 float-right" size="sm" onClick={changeNextMonth}>
@@ -124,52 +138,55 @@ export default class MonthCard extends React.Component {
 
       </div>)
     }
-    return (
-      <div>
-        <Row>
-          <Col>
-            <Card className="shadow">
-              <Card.Header as="h6" className="py-2">
-                <Row>
-                  <Col>
-                    <Button className="mx-1 float-left" size="sm" onClick={changePrevMonth}>
-                      <IoIosArrowBack className="align-middle mb-1" />
-                    </Button>
-                  </Col>
-                  <Col>
-                    <span className="align-middle">{this.state.monthData.month}/{this.state.monthData.year}</span>
-                  </Col>
-                  <Col>
-                    <Button className="mx-1 float-right" size="sm" onClick={changeNextMonth}>
-                      <IoIosArrowForward className="align-middle mb-1" />
-                    </Button>
-                  </Col>
-                </Row>
-              </Card.Header>
-              <Card.Body className="pt-0 pb-1">
-                <Carousel activeIndex={this.state.monthIndex} direction={this.state.direction} controls={false} indicators={false} touch={false}>
-                  {this.state.monthList.map((value, index) => {
-                    return (
-                      <Carousel.Item>
-                        <Row>
-                          <Col className="py-3">
-                            <MonthExpensesCard header={outcomeHeader} monthData={this.state.monthData.outcomes} />
-                          </Col>
-                          <Col className="py-3">
-                            <MonthExpensesCard header={incomeHeader} monthData={this.state.monthData.incomes} />
-                          </Col>
-                        </Row>
-                      </Carousel.Item>
-                    )
-                  })}
-                </Carousel>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
+    else {
+      return (
+        <div>
+          <Row>
+            <Col>
+              <Card className="shadow">
+                <Card.Header as="h6" className="py-2">
+                  <Row>
+                    <Col>
+                      <Button className="mx-1 float-left" size="sm" onClick={changePrevMonth}>
+                        <IoIosArrowBack className="align-middle mb-1" />
+                      </Button>
+                    </Col>
+                    <Col>
+                      <span className="align-middle">{this.state.monthData.month}/{this.state.monthData.year}</span>
+                    </Col>
+                    <Col>
+                      <Button className="mx-1 float-right" size="sm" onClick={changeNextMonth}>
+                        <IoIosArrowForward className="align-middle mb-1" />
+                      </Button>
+                    </Col>
+                  </Row>
+                </Card.Header>
+                <Card.Body className="pt-0 pb-1">
+                  <Carousel activeIndex={this.state.monthIndex} direction={this.state.direction} controls={false} indicators={false} touch={false}>
+                    {this.state.monthList.map((value, index) => {
+                      return (
+                        <Carousel.Item>
+                          <Row>
+                            <Col className="py-3">
+                              <MonthExpensesCard header={outcomeHeader} expenses={this.state.outcomes} total={this.state.monthData.outcomesTotal} />
+                            </Col>
+                            <Col className="py-3">
+                              <MonthExpensesCard header={incomeHeader} expenses={this.state.incomes} total={this.state.monthData.incomesTotal} />
+                            </Col>
+                          </Row>
+                        </Carousel.Item>
+                      )
+                    })}
+                  </Carousel>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
 
-      </div>
-    );
+        </div>
+      );
+    }
+
 
   };
 }
