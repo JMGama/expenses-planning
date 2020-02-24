@@ -1,0 +1,90 @@
+[
+    {
+        "id": "0001",
+        "value": 8000.00,
+        "type": "income",
+        "description": "Work payment part 1",
+        "date": "2020/01/18",
+        "fkMonth": "000001"
+    },
+    {
+        "id": "0002",
+        "value": 180.99,
+        "type": "income",
+        "description": "Friend debt",
+        "date": "2020/01/18",
+        "fkMonth": "000001"
+    },
+    {
+        "id": "0003",
+        "value": 4000.00,
+        "type": "outcome",
+        "description": "House rent",
+        "date": "2020/01/18",
+        "fkMonth": "000001"
+    },
+    {
+        "id": "0004",
+        "value": 2000.00,
+        "type": "outcome",
+        "description": "Food store",
+        "date": "2020/01/18",
+        "fkMonth": "000001"
+    },
+    {
+        "id": "0005",
+        "value": 150.00,
+        "type": "outcome",
+        "description": "Burger King with friends",
+        "date": "2020/01/18",
+        "fkMonth": "000001"
+    },
+    {
+        "id": "0006",
+        "value": 460.67,
+        "type": "outcome",
+        "description": "Dinner with gf at Diavolo",
+        "date": "2020/01/18",
+        "fkMonth": "000001"
+    },
+    {
+        "id": "0007",
+        "value": 8000.00,
+        "type": "income",
+        "description": "Work payment part 1",
+        "date": "2020/02/26",
+        "fkMonth": "000002"
+    },
+    {
+        "id": "0008",
+        "value": 4000.00,
+        "type": "outcome",
+        "description": "House rent",
+        "date": "2020/02/26",
+        "fkMonth": "000002"
+    },
+    {
+        "id": "0009",
+        "value": 2500.00,
+        "type": "outcome",
+        "description": "Food store",
+        "date": "2020/02/26",
+        "fkMonth": "000002"
+    },
+    {
+        "id": "0010",
+        "value": 150.00,
+        "type": "outcome",
+        "description": "Mc Donald's with squad",
+        "date": "2020/02/26",
+        "fkMonth": "000002"
+    },
+    {
+        "id": "0011",
+        "value": 460.72,
+        "type": "outcome",
+        "description": "Dinner with gf at Diavolo",
+        "date": "2020/02/26",
+        "fkMonth": "000002"
+    }
+]
