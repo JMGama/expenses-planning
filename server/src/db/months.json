@@ -1,6 +1,6 @@
 [
     {
-        "id": "000001",
+        "id": 1,
         "month": "1",
         "year": "2020",
         "balance": 1570.32,
@@ -8,7 +8,7 @@
         "outcomesTotal": 6610.67
     },
     {
-        "id": "000002",
+        "id": 2,
         "month": "2",
         "year": "2020",
         "balance": 889.28,
@@ -16,11 +16,11 @@
         "outcomesTotal": 7110.72
     },
     {
-        "id": "000003",
+        "id": 3,
         "month": "3",
         "year": "2020",
-        "balance": 889.28,
-        "incomesTotal": 8000.00,
-        "outcomesTotal": 7110.72
+        "balance": 0.00,
+        "incomesTotal": 0.00,
+        "outcomesTotal": 0.00
     }
 ]
