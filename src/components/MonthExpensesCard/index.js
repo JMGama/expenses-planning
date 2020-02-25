@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 
 
 export const MonthExpensesCard = ({ header, expenses, total }) => {
-  console.log(expenses)
+
   return (
     <Card className="">
       <Card.Header as="h6" className="py-2">

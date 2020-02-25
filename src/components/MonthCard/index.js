@@ -43,6 +43,8 @@ export default class MonthCard extends React.Component {
       .then(response => {
         this.setState({ monthList: response })
         this.setState({ monthId: response[response.length - 1] })
+        this.setState({ monthIndex: response.length - 1 }
+        )
       })
       .catch(error => console.log(error))
   }
@@ -62,7 +64,7 @@ export default class MonthCard extends React.Component {
             .then(response => {
               const incomes = response.filter(item => item.type === "income")
               const outcomes = response.filter(item => item.type === "outcome")
-              console.log(response)
+
               this.setState({ incomes })
               this.setState({ outcomes })
               this.setState({ loading: false })
@@ -77,18 +79,18 @@ export default class MonthCard extends React.Component {
     const incomeHeader = <div><FiArrowDown color="green" /> Incomes <FiArrowDown color="green" /></div>
     const outcomeHeader = <div><FiArrowUp color="red" /> Outcomes <FiArrowUp color="red" /></div>
 
-    const changeNextMonth = () => {
-      if (this.state.monthIndex !== this.state.monthList.length - 1) {
-        this.setState({ monthIndex: this.state.monthIndex + 1 })
-        this.setState({ monthId: this.state.monthList[this.state.monthIndex] })
+    const changeNextMonth = async () => {
+      if (this.state.monthIndex !== 0) {
         this.setState({ direction: 'next' })
+        await this.setState({ monthIndex: this.state.monthIndex - 1 })
+        this.setState({ monthId: this.state.monthList[this.state.monthIndex] })
       }
     }
-    const changePrevMonth = () => {
-      if (this.state.monthIndex !== 0) {
-        this.setState({ monthIndex: this.state.monthIndex - 1 })
-        this.setState({ monthId: this.state.monthList[this.state.monthIndex] })
+    const changePrevMonth = async () => {
+      if (this.state.monthIndex !== this.state.monthList.length - 1) {
         this.setState({ direction: 'prev' })
+        await this.setState({ monthIndex: this.state.monthIndex + 1 })
+        this.setState({ monthId: this.state.monthList[this.state.monthIndex] })
       }
     }
 
@@ -165,13 +167,13 @@ export default class MonthCard extends React.Component {
                   <Carousel activeIndex={this.state.monthIndex} direction={this.state.direction} controls={false} indicators={false} touch={false}>
                     {this.state.monthList.map((value, index) => {
                       return (
-                        <Carousel.Item>
+                        <Carousel.Item key={index}>
                           <Row>
                             <Col className="py-3">
-                              <MonthExpensesCard header={outcomeHeader} expenses={this.state.outcomes} total={this.state.monthData.outcomesTotal} />
+                              <MonthExpensesCard key={`outcomes-${index}`} header={outcomeHeader} expenses={this.state.outcomes} total={this.state.monthData.outcomesTotal} />
                             </Col>
                             <Col className="py-3">
-                              <MonthExpensesCard header={incomeHeader} expenses={this.state.incomes} total={this.state.monthData.incomesTotal} />
+                              <MonthExpensesCard key={`incomes-${index}`} header={incomeHeader} expenses={this.state.incomes} total={this.state.monthData.incomesTotal} />
                             </Col>
                           </Row>
                         </Carousel.Item>

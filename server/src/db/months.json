@@ -14,5 +14,13 @@
         "balance": 889.28,
         "incomesTotal": 8000.00,
         "outcomesTotal": 7110.72
+    },
+    {
+        "id": "000003",
+        "month": "3",
+        "year": "2020",
+        "balance": 889.28,
+        "incomesTotal": 8000.00,
+        "outcomesTotal": 7110.72
     }
 ]
