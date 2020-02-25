@@ -10,6 +10,8 @@ import Button from "react-bootstrap/Button";
 import { FiArrowUp, FiArrowDown } from "react-icons/fi"
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io"
 
+import { EmptyContent } from "./styles"
+
 export default class MonthCard extends React.Component {
   constructor(props) {
     super(props)
@@ -81,16 +83,20 @@ export default class MonthCard extends React.Component {
 
     const changeNextMonth = async () => {
       if (this.state.monthIndex !== 0) {
-        this.setState({ direction: 'next' })
         await this.setState({ monthIndex: this.state.monthIndex - 1 })
-        this.setState({ monthId: this.state.monthList[this.state.monthIndex] })
+        this.setState({
+          monthId: this.state.monthList[this.state.monthIndex],
+          direction: 'next'
+        })
       }
     }
     const changePrevMonth = async () => {
       if (this.state.monthIndex !== this.state.monthList.length - 1) {
-        this.setState({ direction: 'prev' })
         await this.setState({ monthIndex: this.state.monthIndex + 1 })
-        this.setState({ monthId: this.state.monthList[this.state.monthIndex] })
+        this.setState({
+          monthId: this.state.monthList[this.state.monthIndex],
+          direction: 'prev'
+        })
       }
     }
 
@@ -123,10 +129,10 @@ export default class MonthCard extends React.Component {
                       <Carousel.Item>
                         <Row>
                           <Col className="py-3">
-                            <div></div>
+                            <EmptyContent></EmptyContent>
                           </Col>
                           <Col className="py-3">
-                            <div></div>
+                            <EmptyContent></EmptyContent>
                           </Col>
                         </Row>
                       </Carousel.Item>
