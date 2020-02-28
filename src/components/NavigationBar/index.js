@@ -7,7 +7,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 
 export const NavigationBar = () => (
-  <NavbarStyled expand="lg" static="top" className="shadow navbar-dark" >
+  <NavbarStyled expand="lg" sticky="top" className="shadow navbar-dark" >
     <Container>
       <Link to="/">
         <NavbarStyled.Brand>Expenses Planning</NavbarStyled.Brand>
