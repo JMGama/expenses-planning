@@ -1,11 +1,11 @@
 import React from "react";
 
-import MonthCard from "../../components/MonthCard";
+import MonthsCarousel from "../../components/MonthsCarousel";
 
 export const Month = () => {
   return (
     <div className="align-middle text-center">
-      <MonthCard />
+      <MonthsCarousel />
     </div>
   );
 };
