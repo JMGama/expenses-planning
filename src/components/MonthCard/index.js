@@ -1,125 +1,79 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { MonthExpensesCard } from "../MonthExpensesCard";
+
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
-import Carousel from "react-bootstrap/Carousel";
-import Button from "react-bootstrap/Button";
 
 import { FiArrowUp, FiArrowDown } from "react-icons/fi"
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io"
-
-export default class MonthCard extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      "monthIndex": 0,
-      "monthId": null,
-      "monthList": [0],
-      "incomes": [],
-      "outcomes": [],
-      "monthData": {},
-    }
-  }
 
 
-  componentDidMount() {
-    fetch('http://localhost:3001/api/months',
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json"
-        }
-      })
-      .then(res => res.json())
-      .then(months => {
-        this.setState({
-          monthList: months.reverse(),
-          monthId: months[0]
-        })
-      })
-      .catch(error => console.log(error))
-
-  }
-
-  changeMonth = (direction) => {
-    const { monthIndex, monthList } = this.state
-
-    if (direction === 'next') {
-      if (monthIndex !== monthList.length - 1) {
-        this.setState({
-          monthIndex: monthIndex + 1,
-          monthId: monthList[monthIndex + 1]
-        })
-      }
-    }
-    if (direction === 'prev') {
-      if (monthIndex !== 0) {
-        this.setState({
-          monthIndex: monthIndex - 1,
-          monthId: monthList[monthIndex - 1]
-        })
-      }
-    }
-  }
-
-  render() {
+export const MonthCard = ({ monthId, active }) => {
     const incomeHeader = <div><FiArrowDown color="green" /> Incomes <FiArrowDown color="green" /></div>
     const outcomeHeader = <div><FiArrowUp color="red" /> Outcomes <FiArrowUp color="red" /></div>
-    let { monthIndex, monthList, monthData, outcomes, incomes } = this.state
 
+    const [incomes, setIncomes] = useState()
+    const [outcomes, setOutcomes] = useState()
+    const [incomesTotal, setIncomesTotal] = useState()
+    const [outcomesTotal, setOutcomesTotal] = useState()
+    const [date, setDate] = useState()
+    const [loaded, setLoaded] = useState(false)
 
-    return (
-      <div>
+    const getMonthData = (monthId) => {
+        fetch(`http://localhost:3001/api/months/${monthId}`,
+            {
+                method: "GET",
+                headers: {
+                    Accept: "application/json"
+                }
+            })
+            .then(res => res.json())
+            .then(month => {
+                setIncomesTotal(month.incomesTotal)
+                setOutcomesTotal(month.incomesTotal)
+                let date = new Date(month.year, month.month)
+                    .toLocaleString('default', { month: 'long', year: 'numeric' })
+                setDate(date)
+            }).then(() => {
+                fetch(`http://localhost:3001/api/expenses/month/${monthId}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            Accept: "application/json"
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(expenses => {
+                        const incomes = expenses.filter((item) => item.type === 'income')
+                        const outcomes = expenses.filter((item) => item.type === 'outcome')
+                        setIncomes(incomes)
+                        setOutcomes(outcomes)
+
+                    }).then(() => setLoaded(true))
+            })
+            .catch(error => console.log(error))
+    }
+
+    useEffect(() => {
+        if (monthId && active && !loaded) {
+            getMonthData(monthId)
+        }
+    }, [monthId, active, loaded])
+
+    return (<div>
         <Row>
-          <Col>
-            <Card className="shadow">
-              <Card.Header as="h6" className="py-2">
-                <Row>
-                  <Col>
-                    <Button className="mx-1 float-left" size="sm" onClick={() => this.changeMonth('prev')}>
-                      <IoIosArrowBack className="align-middle mb-1" />
-                    </Button>
-                  </Col>
-                  <Col>
-                    <span className="align-middle">Monthly Balance</span>
-                  </Col>
-                  <Col>
-                    <Button className="mx-1 float-right" size="sm" onClick={() => this.changeMonth('next')}>
-                      <IoIosArrowForward className="align-middle mb-1" />
-                    </Button>
-                  </Col>
-                </Row>
-              </Card.Header>
-              <Card.Body className="pt-0 pb-1">
-                <Carousel activeIndex={monthIndex} controls={false} indicators={false} touch={false} onSelect={(index, e) => null}>
-                  {monthList.map((value, index) => {
-                    return (
-                      <Carousel.Item key={index}>
-                        <Row>
-                          <Col className="py-3">
-                            <MonthExpensesCard key={`outcomes-${index}`} header={outcomeHeader} expenses={outcomes} total={monthData.outcomesTotal} />
-                          </Col>
-                          <Col className="py-3">
-                            <MonthExpensesCard key={`incomes-${index}`} header={incomeHeader} expenses={incomes} total={monthData.incomesTotal} />
-                          </Col>
-                        </Row>
-                      </Carousel.Item>
-                    )
-                  })}
-                </Carousel>
-              </Card.Body>
-            </Card>
-          </Col>
+            <Col className="pt-3 pb-0">
+                {date || 'Loading data...'}
+            </Col>
         </Row>
+        <Row>
+            <Col className="py-3">
+                <MonthExpensesCard key={`outcomes-${monthId}`} header={outcomeHeader} expenses={incomes} total={incomesTotal} />
+            </Col>
+            <Col className="py-3">
+                <MonthExpensesCard key={`incomes-${monthId}`} header={incomeHeader} expenses={outcomes} total={outcomesTotal} />
+            </Col>
+        </Row>
+    </div>)
 
-      </div>
-    );
-
-
-
-  };
 }
-
-
