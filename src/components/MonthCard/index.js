@@ -42,16 +42,20 @@ export default class MonthCard extends React.Component {
   componentDidMount() {
     this.fetchData('http://localhost:3001/api/months', "GET")
       .then(res => res.json())
-      .then(response => {
-        this.setState({ monthList: response })
-        this.setState({ monthId: response[response.length - 1] })
-        this.setState({ monthIndex: response.length - 1 }
+      .then(months => {
+        this.setState(
+          {
+            monthList: months,
+            monthId: months[months.length - 1],
+            monthIndex: months.length - 1
+          }
         )
       })
       .catch(error => console.log(error))
   }
 
   componentDidUpdate(prevProps, prevState) {
+    console.log('se updateo')
     if (this.state.monthId !== prevState.monthId) {
       this.setState({ loading: true })
 
@@ -77,28 +81,23 @@ export default class MonthCard extends React.Component {
 
   }
 
+  changeMonth = (direction) => {
+    const { monthIndex, monthList } = this.state
+    if (monthIndex !== 0) {
+      console.log(monthIndex)
+      this.setState({ monthIndex: monthIndex - 1 })
+      // this.setState({
+      //   monthId: monthIndex - 1,
+      //   direction: direction
+      // })
+    }
+  }
+
+
   render() {
     const incomeHeader = <div><FiArrowDown color="green" /> Incomes <FiArrowDown color="green" /></div>
     const outcomeHeader = <div><FiArrowUp color="red" /> Outcomes <FiArrowUp color="red" /></div>
-
-    const changeNextMonth = async () => {
-      if (this.state.monthIndex !== 0) {
-        await this.setState({ monthIndex: this.state.monthIndex - 1 })
-        this.setState({
-          monthId: this.state.monthList[this.state.monthIndex],
-          direction: 'next'
-        })
-      }
-    }
-    const changePrevMonth = async () => {
-      if (this.state.monthIndex !== this.state.monthList.length - 1) {
-        await this.setState({ monthIndex: this.state.monthIndex + 1 })
-        this.setState({
-          monthId: this.state.monthList[this.state.monthIndex],
-          direction: 'prev'
-        })
-      }
-    }
+    const { monthIndex, monthList, direction, monthData, outcomes, incomes } = this.state
 
     if (this.state.loading) {
       return (<div>
@@ -108,7 +107,7 @@ export default class MonthCard extends React.Component {
               <Card.Header as="h6" className="py-2">
                 <Row>
                   <Col>
-                    <Button className="mx-1 float-left" size="sm" onClick={changePrevMonth}>
+                    <Button className="mx-1 float-left" size="sm" >
                       <IoIosArrowBack className="align-middle mb-1" />
                     </Button>
                   </Col>
@@ -116,15 +115,15 @@ export default class MonthCard extends React.Component {
                     <span className="align-middle">...</span>
                   </Col>
                   <Col>
-                    <Button className="mx-1 float-right" size="sm" onClick={changeNextMonth}>
+                    <Button className="mx-1 float-right" size="sm" >
                       <IoIosArrowForward className="align-middle mb-1" />
                     </Button>
                   </Col>
                 </Row>
               </Card.Header>
               <Card.Body className="pt-0 pb-1">
-                <Carousel activeIndex={this.state.monthIndex} direction={this.state.direction} controls={false} indicators={false} touch={false}>
-                  {this.state.monthList.map((value, index) => {
+                <Carousel controls={false} indicators={false} touch={false}>
+                  {monthList.map((value, index) => {
                     return (
                       <Carousel.Item>
                         <Row>
@@ -155,31 +154,31 @@ export default class MonthCard extends React.Component {
                 <Card.Header as="h6" className="py-2">
                   <Row>
                     <Col>
-                      <Button className="mx-1 float-left" size="sm" onClick={changePrevMonth}>
+                      <Button className="mx-1 float-left" size="sm" onClick={() => this.changeMonth('prev')}>
                         <IoIosArrowBack className="align-middle mb-1" />
                       </Button>
                     </Col>
                     <Col>
-                      <span className="align-middle">{this.state.monthData.month}/{this.state.monthData.year}</span>
+                      <span className="align-middle">{monthData.month}/{monthData.year}</span>
                     </Col>
                     <Col>
-                      <Button className="mx-1 float-right" size="sm" onClick={changeNextMonth}>
+                      <Button className="mx-1 float-right" size="sm" onClick={() => this.changeMonth('next')}>
                         <IoIosArrowForward className="align-middle mb-1" />
                       </Button>
                     </Col>
                   </Row>
                 </Card.Header>
                 <Card.Body className="pt-0 pb-1">
-                  <Carousel activeIndex={this.state.monthIndex} direction={this.state.direction} controls={false} indicators={false} touch={false}>
-                    {this.state.monthList.map((value, index) => {
+                  <Carousel activeIndex={monthIndex} direction={direction} controls={false} indicators={false} touch={false}>
+                    {monthList.map((value, index) => {
                       return (
                         <Carousel.Item key={index}>
                           <Row>
                             <Col className="py-3">
-                              <MonthExpensesCard key={`outcomes-${index}`} header={outcomeHeader} expenses={this.state.outcomes} total={this.state.monthData.outcomesTotal} />
+                              <MonthExpensesCard key={`outcomes-${index}`} header={outcomeHeader} expenses={outcomes} total={monthData.outcomesTotal} />
                             </Col>
                             <Col className="py-3">
-                              <MonthExpensesCard key={`incomes-${index}`} header={incomeHeader} expenses={this.state.incomes} total={this.state.monthData.incomesTotal} />
+                              <MonthExpensesCard key={`incomes-${index}`} header={incomeHeader} expenses={incomes} total={monthData.incomesTotal} />
                             </Col>
                           </Row>
                         </Carousel.Item>
