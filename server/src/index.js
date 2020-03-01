@@ -15,8 +15,8 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 //routes
-app.use('/api/months', require('./routes/months'));
-app.use('/api/expenses', require('./routes/expenses'));
+require('./routes/monthRoutes')(app)
+// app.use('/api/expenses', require('./routes/expenses'));
 
 // starting server
 app.listen(app.get('port'), function () {
