@@ -2,15 +2,15 @@ const Month = require('../models/monthModel.js')
 
 // Retrieve all months of the user from the database
 exports.findAll = (req, res) => {
+    //validate request
+    if (!req.body.userId) {
+        res.status(500).send({
+            message: 'Content can not be empty!'
+        })
+        return
+    }
+
     Month.getAll(req.body.userId, (err, data) => {
-
-        //validate request
-        if (!req.body.userId) {
-            res.status(500).send({
-                message: 'Content can not be empty!'
-            })
-        }
-
         if (err) {
             res.status(500).send({
                 message: err.message || 'Some error ocurred while getting the user months.'
@@ -22,13 +22,15 @@ exports.findAll = (req, res) => {
 }
 
 exports.findMonth = (req, res) => {
-    Month.getMonth(req.body.userId, req.body.monthId, (err, data) => {
+    if (!req.body.userId) {
+        res.status(500).send({
+            message: 'Content can not be empty!'
+        })
+        return
+    }
+
+    Month.getMonth(req.body.userId, req.params.id, (err, data) => {
         //validate request
-        if (!req.body.userId || !req.body.monthId) {
-            res.status(500).send({
-                message: 'Content can not be empty!'
-            })
-        }
 
         if (err) {
             res.status(500).send({

@@ -3,7 +3,7 @@ module.exports = app => {
     const monthController = require('../controllers/monthController.js')
 
     // Month Routes
-    app.get('/month', monthController.findAll)
-    app.get('/month/:id', monthController.findMonth)
+    app.get('/api/v1/month', monthController.findAll)
+    app.get('/api/v1/month/:id', monthController.findMonth)
 
 };

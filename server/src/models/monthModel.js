@@ -14,11 +14,12 @@ Month.getAll = (userId, result) => {
         if (err) {
             console.log('ERROR:' + err)
             result(err, null)
-            return
+        } else {
+            console.log('Months: ' + res)
+            result(null, res)
         }
 
-        console.log('Months: ' + res)
-        result(null, res)
+
     })
 }
 
@@ -27,11 +28,12 @@ Month.getMonth = (userId, monthId, result) => {
         if (err) {
             console.log('ERROR:' + err)
             result(err, null)
-            return
+        } else {
+            console.log('Month: ' + res)
+            result(null, res)
         }
 
-        console.log('Month: ' + res)
-        result(null, res)
+
     })
 }
 

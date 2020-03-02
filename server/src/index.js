@@ -16,7 +16,6 @@ app.use(express.json());
 
 //routes
 require('./routes/monthRoutes')(app)
-// app.use('/api/expenses', require('./routes/expenses'));
 
 // starting server
 app.listen(app.get('port'), function () {
