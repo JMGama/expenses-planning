@@ -1,16 +1,16 @@
 const sql = require('./db.js')
 
 const Month = function (month) {
-    this.monthNumber = month.monthNumber
-    this.monthYear = month.monthYear
-    this.monthBalance = month.monthBalance
-    this.monthIncomesTotal = month.monthIncomesTotal
-    this.monthOutcomesTotal = month.monthOutcomesTotal
-    this.monthFkUser = month.monthFkUser
+    this.month_number = month.number
+    this.year = month.year
+    this.balance = month.balance
+    this.incomes_total = month.incomesTotal
+    this.outcomes_total = month.outcomesTotal
+    this.fk_user = month.userId
 
 }
 Month.getAll = (userId, result) => {
-    sql.query('SELECT * FROM month WHERE fk_user = ?', userId, (err, res) => {
+    sql.query(`SELECT * FROM month WHERE fk_user = ${userId}`, (err, res) => {
         if (err) {
             console.log('ERROR:' + err)
             result(err, null)
@@ -37,4 +37,28 @@ Month.getMonth = (userId, monthId, result) => {
     })
 }
 
+Month.addMonth = (newMonth, result) => {
+    sql.query('INSERT INTO month SET ?', newMonth, (err, res) => {
+        if (err) {
+            console.log('ERROR:' + err)
+            result(err, null)
+        } else {
+            console.log('NEW Month: ' + res)
+            result(null, res)
+        }
+    })
+}
+
+Month.updateMonth = (userId, monthId, balance, incomesTotal, outcomesTotal, result) => {
+    sql.query(`UPDATE month SET balance=${balance}, incomes_total=${incomesTotal}, 
+    outcomes_total=${outcomesTotal} WHERE fk_user=${userId} AND id=${monthId}`, (err, res) => {
+        if (err) {
+            console.log('ERROR:' + err)
+            result(err, null)
+        } else {
+            console.log('NEW Month: ' + res)
+            result(null, res)
+        }
+    })
+}
 module.exports = Month
