@@ -16,6 +16,7 @@ app.use(express.json());
 
 //routes
 require('./routes/monthRoutes')(app)
+require('./routes/expenseRoutes')(app)
 
 // starting server
 app.listen(app.get('port'), function () {
