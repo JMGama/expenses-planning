@@ -2,15 +2,7 @@ const Month = require('../models/monthModel.js')
 
 // Retrieve all months of the user from the database
 exports.findAll = (req, res) => {
-    //validate request
-    if (!req.body.userId) {
-        res.status(400).send({
-            message: 'Invalid request, check your data and try again.'
-        })
-        return
-    }
-
-    Month.getAll(req.body.userId, (err, data) => {
+    Month.getAll(req.params.userId, (err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || 'Some error ocurred while getting the user months.'
@@ -26,15 +18,8 @@ exports.findAll = (req, res) => {
 }
 
 exports.findMonth = (req, res) => {
-    //validate request
-    if (!req.body.userId) {
-        res.status(400).send({
-            message: 'Invalid request, check your data and try again.'
-        })
-        return
-    }
 
-    Month.getMonth(req.body.userId, req.params.id, (err, data) => {
+    Month.getMonth(req.params.id, (err, data) => {
 
         if (err) {
             res.status(500).send({

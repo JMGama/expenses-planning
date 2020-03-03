@@ -5,10 +5,10 @@ const Expense = function (expense) {
     this.type = expense.type
     this.description = expense.description
     this.date = expense.date
-    this.fk_month = expense.monthId
+    this.fkMonth = expense.monthId
 }
 Expense.getByMonth = (monthId, result) => {
-    sql.query(`SELECT * FROM expense WHERE fk_month = ${monthId}`, (err, res) => {
+    sql.query(`SELECT * FROM expense WHERE fkMonth = ${monthId}`, (err, res) => {
         if (err) {
             console.log('ERROR: ' + err)
             result(err, null)
@@ -20,12 +20,12 @@ Expense.getByMonth = (monthId, result) => {
 }
 
 Expense.addExpense = (newExpense, month, year, userId, result) => {
-    sql.query(`SELECT id FROM month WHERE month_number=${month} AND year=${year} AND fk_user =${userId}`, (err, res) => {
+    sql.query(`SELECT id FROM month WHERE monthNumber=${month} AND year=${year} AND fkUser =${userId}`, (err, res) => {
         if (err) {
             console.log('ERROR: ' + err)
             result(err, null)
         }
-        newExpense.fk_month = res[0].id
+        newExpense.fkMonth = res[0].id
         sql.query('INSERT INTO expense SET ?', newExpense, (ins_err, ins_res) => {
             if (ins_err) {
                 console.log('ERROR: ' + ins_err)
