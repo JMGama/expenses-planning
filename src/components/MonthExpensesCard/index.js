@@ -36,6 +36,20 @@ export const MonthExpensesCard = ({ header, expenses, total }) => {
     </TableContent>
   </Card.Body>)
 
+  const formatDate = (date) => {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+
+    return [year, month, day].join('/');
+  }
+
   if (!expenses) {
     return (
       <Card className="">
@@ -91,8 +105,8 @@ export const MonthExpensesCard = ({ header, expenses, total }) => {
               return (
                 <tr key={`${expense.id}-data`}>
                   <TableData className="align-middle col-md-6 text-left" key={`${expense.id}-description`}>{expense.description}</TableData>
-                  <TableData className="align-middle col-md-2" key={`${expense.id}-date`}>{expense.date}</TableData>
-                  <TableData className="align-middle col-md-3" key={`${expense.id}-value`}>{`$${expense.value.toFixed(2)}`}</TableData>
+                  <TableData className="align-middle col-md-2" key={`${expense.id}-date`}>{formatDate(expense.date)}</TableData>
+                  <TableData className="align-middle col-md-3" key={`${expense.id}-value`}>{`$${expense.amount.toFixed(2)}`}</TableData>
                   <TableData className="align-middle col-md-1" key={`${expense.id}-actions`}>
                     <Link to="/expenses/month" className="mx-1">
                       <FaPen className="align-middle mb-1" />

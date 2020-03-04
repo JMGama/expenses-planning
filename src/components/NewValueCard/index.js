@@ -39,13 +39,14 @@ export const NewValueCard = () => {
     }
     else {
       let data = {
-        value: amount,
-        type: selectedValue,
+        userId: 1,
+        amount,
+        type: selectedValue.toLowerCase(),
         description,
         date
       }
       fetch(
-        `http://localhost:3001/api/expenses`,
+        `http://localhost:3001/api/v1/expense`,
         {
           method: "POST",
           body: JSON.stringify(data),
@@ -54,10 +55,13 @@ export const NewValueCard = () => {
             "Content-Type": "application/json"
           }
         }
-      ).then(res => console.log(res))
-      setAmountValid('')
-      setAmount(0.0)
-      setDescription('')
+      ).then(res => {
+        console.log(res)
+        setAmountValid('')
+        setAmount(0.0)
+        setDescription('')
+      })
+
     }
   }
 

@@ -21,18 +21,18 @@ export default class MonthsCarousel extends React.Component {
 
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/months',
+    fetch('http://localhost:3001/api/v1/month/user/1',
       {
         method: "GET",
         headers: {
           Accept: "application/json"
-        }
+        },
       })
       .then(res => res.json())
       .then(months => {
         this.setState({
           monthList: months.reverse(),
-          monthId: months[0]
+          monthId: months[0].id
         })
       })
       .catch(error => console.log(error))
@@ -46,7 +46,7 @@ export default class MonthsCarousel extends React.Component {
       if (monthIndex !== monthList.length - 1) {
         this.setState({
           monthIndex: monthIndex + 1,
-          monthId: monthList[monthIndex + 1]
+          monthId: monthList[monthIndex + 1].id
         })
       }
     }
@@ -54,7 +54,7 @@ export default class MonthsCarousel extends React.Component {
       if (monthIndex !== 0) {
         this.setState({
           monthIndex: monthIndex - 1,
-          monthId: monthList[monthIndex - 1]
+          monthId: monthList[monthIndex - 1].id
         })
       }
     }
@@ -91,7 +91,7 @@ export default class MonthsCarousel extends React.Component {
                   {monthList.map((value, index) => {
                     return (
                       <Carousel.Item key={index}>
-                        <MonthCard monthId={value} active={monthId === value}></MonthCard>
+                        <MonthCard monthData={value} active={monthId === value.id}></MonthCard>
                       </Carousel.Item>
                     )
                   })}
