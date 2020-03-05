@@ -28,23 +28,56 @@ exports.newExpense = (req, res) => {
         return
     }
 
-    //create new Expense object
-    const newExpense = new Expense(req.body)
+
 
     //get the monthId from the date
     const date = new Date(req.body.date)
     const month = date.getMonth() + 1
     const year = date.getFullYear()
-    newExpense.date = date
 
-    Expense.addExpense(newExpense, month, year, request.userId, (err, data) => {
+    //get the month data to be used and modified
+    Expense.getMonthIdByNumberAndYear(month, year, request.userId, (err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || 'Some error ocurred while creating the new Expense.'
             })
         } else {
-            res.send(data)
+
+            //create new Expense object
+            const monthData = data[0]
+            request.monthId = monthData.id
+            request.date = date
+            const newExpense = new Expense(request)
+
+            // add the new expense
+            Expense.addExpense(newExpense, (add_err, add_data) => {
+                if (add_err) {
+                    res.status(500).send({
+                        message: add_err.message || 'Some error ocurred while creating the new Expense.'
+                    })
+                } else {
+
+                    // change the month data with the new expense info
+                    if (newExpense.type === 'income') {
+                        monthData.incomesTotal += newExpense.amount
+                        monthData.balance += newExpense.amount
+                    } else {
+                        monthData.outcomesTotal += newExpense.amount
+                        monthData.balance -= newExpense.amount
+                    }
+
+                    //update the month information.
+                    Expense.updateMonthInfo(monthData, (month_err, month_res) => {
+                        if (month_err) {
+                            res.status(500).send({
+                                message: month_err.message || 'Some error ocurred while getting the month expenses.'
+                            })
+                        } else {
+                            res.send(month_res)
+                        }
+                    })
+                }
+            })
         }
     })
-
 }

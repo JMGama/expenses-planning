@@ -19,24 +19,43 @@ Expense.getByMonth = (monthId, result) => {
     })
 }
 
-Expense.addExpense = (newExpense, month, year, userId, result) => {
-    sql.query(`SELECT id FROM month WHERE monthNumber=${month} AND year=${year} AND fkUser =${userId}`, (err, res) => {
+Expense.addExpense = (newExpense, result) => {
+    sql.query('INSERT INTO expense SET ?', newExpense, (err, res) => {
         if (err) {
             console.log('ERROR: ' + err)
             result(err, null)
+        } else {
+            console.log('NEW Expense: ' + res)
+            result(null, res)
         }
-        newExpense.fkMonth = res[0].id
-        sql.query('INSERT INTO expense SET ?', newExpense, (ins_err, ins_res) => {
-            if (ins_err) {
-                console.log('ERROR: ' + ins_err)
-                result(ins_err, null)
-            } else {
-                console.log('NEW Expense: ' + ins_res)
-                result(null, ins_res)
-            }
-        })
     })
+}
 
+
+Expense.getMonthIdByNumberAndYear = (month, year, userId, result) => {
+    sql.query(`SELECT * FROM month WHERE monthNumber=${month} AND year=${year} AND fkUser =${userId}`, (err, res) => {
+        if (err) {
+            console.log('ERROR: ' + err)
+            result(err, null)
+        } else {
+            console.log('Month id: ' + res)
+            result(null, res)
+        }
+    })
+}
+
+Expense.updateMonthInfo = (month, result) => {
+    console.log(month)
+    sql.query(`UPDATE month SET balance=${month.balance}, incomesTotal=${month.incomesTotal}, outcomesTotal=${month.outcomesTotal}
+    WHERE id=${month.id}`, (err, res) => {
+        if (err) {
+            console.log('ERROR:' + err)
+            result(err, null)
+        } else {
+            console.log('UPDATED Month: ' + res)
+            result(null, res)
+        }
+    })
 }
 
 module.exports = Expense
