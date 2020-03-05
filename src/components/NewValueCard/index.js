@@ -58,7 +58,7 @@ export const NewValueCard = () => {
           }
         }
       ).then(res => {
-        console.log(res)
+        userContext.setReload(true)
         setAmountValid('')
         setAmount(0.0)
         setDescription('')

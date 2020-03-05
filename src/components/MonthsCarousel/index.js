@@ -40,6 +40,26 @@ export default class MonthsCarousel extends React.Component {
 
   }
 
+  componentDidUpdate() {
+    if (this.context.reload) {
+      fetch(`http://localhost:3001/api/v1/month/user/${this.context.user.id}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json"
+          },
+        })
+        .then(res => res.json())
+        .then(months => {
+          this.setState({
+            monthList: months.reverse()
+          })
+        })
+        .catch(error => console.log(error))
+      this.context.setReload(false)
+    }
+  }
+
   changeMonth = (direction) => {
     const { monthIndex, monthList } = this.state
 

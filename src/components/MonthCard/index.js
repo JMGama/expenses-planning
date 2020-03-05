@@ -15,7 +15,6 @@ export const MonthCard = ({ monthData, active }) => {
     const [incomes, setIncomes] = useState(null)
     const [outcomes, setOutcomes] = useState(null)
     const [date, setDate] = useState()
-    const [loaded, setLoaded] = useState(false)
 
     const getMonthData = (monthData) => {
         const date = new Date(monthData.year, monthData.monthNumber - 1)
@@ -36,21 +35,20 @@ export const MonthCard = ({ monthData, active }) => {
                         setIncomes(incomes)
                         setOutcomes(outcomes)
 
-                    }).then(() => setLoaded(true))
+                    })
                 } else {
                     setIncomes([])
                     setOutcomes([])
-                    setLoaded(true)
                 }
             })
             .catch(error => console.log(error))
     }
 
     useEffect(() => {
-        if (monthData && active && !loaded) {
+        if (monthData && active) {
             getMonthData(monthData)
         }
-    }, [monthData, active, loaded])
+    }, [monthData, active])
 
     return (<div>
         <Row>
@@ -60,10 +58,10 @@ export const MonthCard = ({ monthData, active }) => {
         </Row>
         <Row>
             <Col className="py-3">
-                <MonthExpensesCard key={`outcomes-${monthData.id}`} header={outcomeHeader} expenses={outcomes} total={monthData.incomesTotal} />
+                <MonthExpensesCard key={`outcomes-${monthData.id}`} header={outcomeHeader} expenses={outcomes} total={monthData.outcomesTotal} />
             </Col>
             <Col className="py-3">
-                <MonthExpensesCard key={`incomes-${monthData.id}`} header={incomeHeader} expenses={incomes} total={monthData.outcomesTotal} />
+                <MonthExpensesCard key={`incomes-${monthData.id}`} header={incomeHeader} expenses={incomes} total={monthData.incomesTotal} />
             </Col>
         </Row>
     </div>)
