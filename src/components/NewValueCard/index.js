@@ -14,6 +14,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import dateFnsFormat from "date-fns/format";
+import { useUser } from '../../context/user-context'
 
 function formatDate(date, format, locale) {
   return dateFnsFormat(date, format, { locale });
@@ -27,6 +28,7 @@ export const NewValueCard = () => {
   const [amountValid, setAmountValid] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(dateFnsFormat(new Date(), DATE_FORMAT))
+  const userContext = useUser()
 
   const handleDayChange = (selectedDay, modifiers, DayPickerInput) => {
     setDate(DayPickerInput.state.value)
@@ -39,9 +41,9 @@ export const NewValueCard = () => {
     }
     else {
       let data = {
-        userId: 1,
+        userId: userContext.user.id,
         amount,
-        type: selectedValue.toLowerCase(),
+        type: selectedValue,
         description,
         date
       }

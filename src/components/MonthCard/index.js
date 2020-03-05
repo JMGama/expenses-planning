@@ -60,10 +60,10 @@ export const MonthCard = ({ monthData, active }) => {
         </Row>
         <Row>
             <Col className="py-3">
-                <MonthExpensesCard key={`outcomes-${monthData.id}`} header={outcomeHeader} expenses={incomes} total={monthData.incomesTotal} />
+                <MonthExpensesCard key={`outcomes-${monthData.id}`} header={outcomeHeader} expenses={outcomes} total={monthData.incomesTotal} />
             </Col>
             <Col className="py-3">
-                <MonthExpensesCard key={`incomes-${monthData.id}`} header={incomeHeader} expenses={outcomes} total={monthData.outcomesTotal} />
+                <MonthExpensesCard key={`incomes-${monthData.id}`} header={incomeHeader} expenses={incomes} total={monthData.outcomesTotal} />
             </Col>
         </Row>
     </div>)

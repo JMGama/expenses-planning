@@ -2,7 +2,7 @@ const sql = require('./db.js')
 
 const Expense = function (expense) {
     this.amount = expense.amount
-    this.type = expense.type
+    this.type = expense.type.toLowerCase()
     this.description = expense.description
     this.date = expense.date
     this.fkMonth = expense.monthId

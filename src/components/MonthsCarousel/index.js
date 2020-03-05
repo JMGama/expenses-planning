@@ -8,6 +8,7 @@ import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
 
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io"
+import { UserContext } from '../../context/user-context'
 
 export default class MonthsCarousel extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ export default class MonthsCarousel extends React.Component {
 
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/v1/month/user/1',
+    fetch(`http://localhost:3001/api/v1/month/user/${this.context.user.id}`,
       {
         method: "GET",
         headers: {
@@ -103,10 +104,8 @@ export default class MonthsCarousel extends React.Component {
 
       </div>
     );
-
-
-
   };
 }
 
+MonthsCarousel.contextType = UserContext;
 
