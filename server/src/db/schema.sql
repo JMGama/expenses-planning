@@ -17,9 +17,9 @@ create table month
         primary key,
     monthNumber   int               not null,
     year           int               not null,
-    balance        decimal default 0 not null,
-    incomesTotal  decimal default 0 not null,
-    outcomesTotal decimal default 0 not null,
+    balance        decimal(10,2) default 0 not null,
+    incomesTotal  decimal(10,2) default 0 not null,
+    outcomesTotal decimal(10,2) default 0 not null,
     fkUser        bigint            not null,
     constraint month_user_id_fk
         foreign key (fkUser) references user (id)
@@ -29,7 +29,7 @@ create table expense
 (
     id          bigint auto_increment
         primary key,
-    amount      decimal default 0 not null,
+    amount      decimal(10,2) default 0 not null,
     type        varchar(30)       not null,
     description varchar(250)      not null,
     date        date              not null,
