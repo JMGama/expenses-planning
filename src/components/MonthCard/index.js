@@ -45,8 +45,11 @@ export const MonthCard = ({ monthData, active }) => {
     }
 
     useEffect(() => {
-        if (monthData && active) {
+        if (monthData.id !== 0 && active) {
             getMonthData(monthData)
+        } else {
+            setIncomes([])
+            setOutcomes([])
         }
     }, [monthData, active])
 

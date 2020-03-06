@@ -15,8 +15,8 @@ export default class MonthsCarousel extends React.Component {
     super(props)
     this.state = {
       monthIndex: 0,
-      monthId: null,
-      monthList: [0]
+      monthId: 0,
+      monthList: [{ id: 0 }]
     }
   }
 
@@ -31,10 +31,12 @@ export default class MonthsCarousel extends React.Component {
       })
       .then(res => res.json())
       .then(months => {
-        this.setState({
-          monthList: months.reverse(),
-          monthId: months[0].id
-        })
+        if (months.length > 0) {
+          this.setState({
+            monthList: months.reverse(),
+            monthId: months[0].id
+          })
+        }
       })
       .catch(error => console.log(error))
 
@@ -51,12 +53,14 @@ export default class MonthsCarousel extends React.Component {
         })
         .then(res => res.json())
         .then(months => {
-          this.setState({
-            monthList: months.reverse()
-          })
+          if (months.length > 0) {
+            this.setState({
+              monthList: months.reverse()
+            })
+            this.context.setReload(false)
+          }
         })
         .catch(error => console.log(error))
-      this.context.setReload(false)
     }
   }
 
