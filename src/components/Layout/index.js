@@ -7,6 +7,8 @@ import { StatusBar } from "../../components/StatusBar";
 import { Home } from "../../pages/Home";
 import { Month } from "../../pages/Month";
 import { NotFound } from "../../pages/NotFound";
+import { Login } from "../../components/Login";
+
 
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
@@ -58,6 +60,7 @@ export const LayoutRouter = ({ match }) => {
           </Layout>
         )}
       />
+      <Route exact path={`${match.path}/login`} component={Login} />
       <Route component={NotFound} />
     </Switch>
   );
