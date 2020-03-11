@@ -75,6 +75,18 @@ exports.editUser = (req, res) => {
 
 exports.loginUser = (req, res) => {
     User.getUserByEmail(req.body.email, (err, data) => {
+
+        const request = req.body
+        if ((request.remember !== true && request.remember !== false) ||
+            !request.email ||
+            !request.password) {
+            res.status(400).send({
+                message: 'Invalid request, check your data and try again.'
+            })
+            return
+        }
+
+
         if (err) {
             res.status(500).send({
                 message: err.message || 'Some error ocurred while getting the login user.'
@@ -84,10 +96,15 @@ exports.loginUser = (req, res) => {
                 message: 'There is no information for that request.'
             })
         } else {
-            bcrypt.compare(req.body.password, data.password, function (hash_err, hash_res) {
+            bcrypt.compare(request.password, data.password, function (hash_err, hash_res) {
                 if (hash_res) {
-                    delete data.password
-                    res.send(data)
+                    const response = {
+                        id: data.id,
+                        email: data.email,
+                        firstName: data.firstName,
+                        lastName: data.lastName
+                    }
+                    res.send(response)
                 } else {
                     res.status(404).send({
                         message: 'Invalid email or password.'
