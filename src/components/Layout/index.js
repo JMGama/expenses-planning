@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 
 import { NavigationBar } from "../../components/NavigationBar";
@@ -8,13 +8,14 @@ import { Home } from "../../pages/Home";
 import { Month } from "../../pages/Month";
 import { NotFound } from "../../pages/NotFound";
 import { Login } from "../../components/Login";
+import { SignUp } from "../../components/SignUp";
 
 
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-export const Layout = props => {
+const Layout = props => {
   const children = props.children;
   return (
     <Fragment>
@@ -38,13 +39,28 @@ export const Layout = props => {
   );
 };
 
+// const checkAuth = () => {
+//   const token = localStorage.getItem('token')
+//   const
+// }
+
+// const AuthRoute = ({ component: Component, ...rest }) => (
+//   < Route {...rest} render={props => (
+//     checkAuth() ? (
+//       <Component {...props} />
+//     ) : (
+//         <Redirect to={{ pathname: '/login' }} />
+//       )
+//   )} />
+// )
+
 export const LayoutRouter = ({ match }) => {
   return (
     <Switch>
-      <Redirect from="/expenses" to={`${match.path}/home`} exact />
+      <Redirect exact from="/" to="/home" />
       <Route
         exact
-        path={`${match.path}/home`}
+        path={'/home'}
         render={() => (
           <Layout>
             <Home />
@@ -53,14 +69,15 @@ export const LayoutRouter = ({ match }) => {
       />
       <Route
         exact
-        path={`${match.path}/month`}
+        path={'/month'}
         render={() => (
           <Layout>
             <Month />
           </Layout>
         )}
       />
-      <Route exact path={`${match.path}/login`} component={Login} />
+      <Route exact path={'/login'} component={Login} />
+      <Route exact path={'/signup'} component={SignUp} />
       <Route component={NotFound} />
     </Switch>
   );

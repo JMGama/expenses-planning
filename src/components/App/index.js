@@ -10,8 +10,7 @@ export const App = () => (
   <UserProvider>
     <BrowserRouter>
       <Switch>
-        <Redirect from="/" to="/expenses" exact />
-        <Route path="/expenses" component={LayoutRouter} />
+        <Route path="/" component={LayoutRouter} />
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>

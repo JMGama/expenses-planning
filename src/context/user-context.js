@@ -4,14 +4,13 @@ export const UserContext = React.createContext()
 
 export const UserProvider = (props) => {
     const [user, setUser] = useState({
-        id: 1,
-        firstName: "Jose Manuel",
-        lastName: "Gama Estrada"
+        id: null,
+        firstName: null,
+        lastName: null
     })
     const [reload, setReload] = useState(false)
-
     const value = useMemo(() => {
-        return ({ user, reload, setReload })
+        return ({ user, setUser, reload, setReload })
     }, [user, reload])
 
     return <UserContext.Provider value={value}{...props} />
