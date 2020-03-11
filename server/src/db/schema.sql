@@ -1,15 +1,17 @@
 create table user
 (
-    id         bigint auto_increment
+    id        bigint auto_increment
         primary key,
     firstName varchar(35)  not null,
     lastName  varchar(35)  not null,
-    birthday   date         not null,
-    country    varchar(60)  not null,
-    email      varchar(150) not null,
-    password   char(160)    not null
+    birthday  date         not null,
+    country   varchar(60)  not null,
+    region    varchar(60)  not null,
+    password  char(160)    not null,
+    email     varchar(150) not null
 )
     comment 'All the users personal information.';
+
 
 create table month
 (
