@@ -16,18 +16,40 @@ exports.newUser = (req, res) => {
         })
         return
     }
-    request.password = bcrypt.hashSync(request.password, 10)
 
-    const newUser = new User(req.body)
-    User.addUser(newUser, (err, data) => {
+    // Validate that the email doesn't exists already.
+    User.getUserByEmail(request.email, (err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || 'Some error ocurred while creating the new user.'
             })
         } else {
-            res.send(data)
+            console.log(data)
+            if (data) {
+                res.status(400).send({
+                    message: 'The given email is already used.'
+                })
+            } else {
+                // Create the new user with the request data if the email is available.
+                request.password = bcrypt.hashSync(request.password, 10)
+
+                const newUser = new User(req.body)
+                User.addUser(newUser, (err, data) => {
+                    if (err) {
+                        res.status(500).send({
+                            message: err.message || 'Some error ocurred while creating the new user.'
+                        })
+                    } else {
+                        res.send(data)
+                    }
+                })
+
+            }
+
         }
     })
+
+
 }
 
 exports.findUser = (req, res) => {
