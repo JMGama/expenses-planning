@@ -16,7 +16,7 @@ export const Login = () => {
 			remember: e.target.remember.checked
 		}
 		fetch(
-			`http://localhost:3001/api/v1/user/login`,
+			`http://localhost:3001/api/v1/auth/login`,
 			{
 				method: "POST",
 				body: JSON.stringify(data),

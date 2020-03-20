@@ -28,7 +28,7 @@ export const SignUp = (props) => {
             region
         }
         fetch(
-            `http://localhost:3001/api/v1/user/`,
+            `http://localhost:3001/api/v1/auth/signup`,
             {
                 method: "POST",
                 body: JSON.stringify(data),
