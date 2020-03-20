@@ -18,6 +18,7 @@ app.use(express.json());
 require('./routes/monthRoutes')(app)
 require('./routes/expenseRoutes')(app)
 require('./routes/userRoutes')(app)
+require('./routes/authRoutes')(app)
 
 // starting server
 app.listen(app.get('port'), function () {
