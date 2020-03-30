@@ -1,6 +1,3 @@
-
-
-
 module.exports = app => {
     const userController = require('../controllers/authController.js')
 

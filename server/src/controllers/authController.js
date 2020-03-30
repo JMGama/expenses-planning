@@ -1,5 +1,6 @@
 const User = require('../models/userModel.js')
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 exports.loginUser = (req, res) => {
     User.getUserByEmail(req.body.email, (err, data) => {
@@ -26,11 +27,20 @@ exports.loginUser = (req, res) => {
         } else {
             bcrypt.compare(request.password, data.password, function (hash_err, hash_res) {
                 if (hash_res) {
-                    const response = {
+                    const payload = {
                         id: data.id,
                         email: data.email,
                         firstName: data.firstName,
                         lastName: data.lastName
+                    }
+                    console.log(process.env.JWT_SECRET)
+                    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+                        expiresIn: '24h'
+                    });
+
+                    const response = {
+                        message: 'Successfully authenticated',
+                        token
                     }
                     res.send(response)
                 } else {

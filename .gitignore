@@ -25,3 +25,8 @@ yarn-error.log*
 # Visual Studio Code
 .vscode
 launch.json
+
+# Security information
+configs.js
+db.config.js
+.env
