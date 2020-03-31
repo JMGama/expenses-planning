@@ -29,6 +29,7 @@ export const Login = () => {
 			if (res.status === 200) {
 				res.json().then(response => {
 					userContext.setUser(response.user)
+					userContext.setToken(response.token)
 					setLogged(true)
 				})
 			}
