@@ -54,14 +54,15 @@ export const NewValueCard = () => {
           body: JSON.stringify(data),
           headers: {
             "Accept": "application/json",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": 'Bearer ' + userContext.token
           }
         }
       ).then(res => {
-        userContext.setReload(true)
         setAmountValid('')
         setAmount(0.0)
         setDescription('')
+        userContext.setReload(true)
       })
 
     }

@@ -26,7 +26,8 @@ export default class MonthsCarousel extends React.Component {
       {
         method: "GET",
         headers: {
-          Accept: "application/json"
+          Accept: "application/json",
+          Authorization: 'Bearer ' + this.context.token
         },
       })
       .then(res => res.json())
@@ -48,14 +49,16 @@ export default class MonthsCarousel extends React.Component {
         {
           method: "GET",
           headers: {
-            Accept: "application/json"
+            Accept: "application/json",
+            Authorization: 'Bearer ' + this.context.token
           },
         })
         .then(res => res.json())
         .then(months => {
           if (months.length > 0) {
             this.setState({
-              monthList: months.reverse()
+              monthList: months.reverse(),
+              monthId: months[0].id
             })
             this.context.setReload(false)
           }

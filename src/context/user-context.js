@@ -9,10 +9,11 @@ export const UserProvider = (props) => {
         lastName: null,
         email: null
     })
+    const [token, setToken] = useState(null)
     const [reload, setReload] = useState(false)
     const value = useMemo(() => {
-        return ({ user, setUser, reload, setReload })
-    }, [user, reload])
+        return ({ user, setUser, reload, setReload, token, setToken })
+    }, [user, reload, token])
 
     return <UserContext.Provider value={value}{...props} />
 }
