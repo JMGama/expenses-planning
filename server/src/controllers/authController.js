@@ -45,7 +45,13 @@ exports.loginUser = (req, res) => {
 
                     const response = {
                         message: 'Successfully authenticated',
-                        token
+                        token,
+                        user: {
+                            id: payload.id,
+                            email: payload.email,
+                            firstName: payload.firstName,
+                            lastName: payload.lastName
+                        }
                     }
                     res.send(response)
                 } else {

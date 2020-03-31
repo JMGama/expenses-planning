@@ -6,7 +6,8 @@ export const UserProvider = (props) => {
     const [user, setUser] = useState({
         id: null,
         firstName: null,
-        lastName: null
+        lastName: null,
+        email: null
     })
     const [reload, setReload] = useState(false)
     const value = useMemo(() => {
