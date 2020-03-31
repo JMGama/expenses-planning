@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 // Verify the Token
 module.exports = function (req, res, next) {
-    const bearerHeader = req.headers['Authorization']
+    const bearerHeader = req.headers['authorization']
 
     if (typeof bearerHeader !== 'undefined') {
         const bearer = bearerHeader.split(' ')
@@ -13,7 +13,7 @@ module.exports = function (req, res, next) {
 
         jwt.verify(bearerToken, process.env.JWT_SECRET, (err, authData) => {
             if (err) {
-                res.sendStatus(403)
+                res.sendStatus(401)
             } else {
                 req.authData = authData
                 next()

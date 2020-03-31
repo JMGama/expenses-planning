@@ -3,26 +3,31 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 exports.loginUser = (req, res) => {
+
+    const request = req.body
+    if ((request.remember !== true && request.remember !== false) ||
+        !request.email ||
+        !request.password) {
+        res.status(400).send({
+            message: 'Invalid request, check your data and try again.'
+        })
+        return
+    }
+
     User.getUserByEmail(req.body.email, (err, data) => {
 
-        const request = req.body
-        if ((request.remember !== true && request.remember !== false) ||
-            !request.email ||
-            !request.password) {
-            res.status(400).send({
-                message: 'Invalid request, check your data and try again.'
-            })
-            return
-        }
-
-
+        console.log(data)
         if (err) {
             res.status(500).send({
                 message: err.message || 'Some error ocurred while getting the login user.'
             })
+        } else if (typeof data === 'undefined') {
+            res.status(404).send({
+                message: 'Invalid email or password.'
+            })
         } else if (data.length === 0) {
             res.status(404).send({
-                message: 'There is no information for that request.'
+                message: 'Invalid email or password.'
             })
         } else {
             bcrypt.compare(request.password, data.password, function (hash_err, hash_res) {
