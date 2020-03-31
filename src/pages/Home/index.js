@@ -10,7 +10,7 @@ import Row from "react-bootstrap/Row";
 
 export const Home = () => {
   const userContext = useUser()
-  console.log(userContext.user)
+
   if (userContext.user.id == null) {
     return <Redirect to="/login" />
   } else {

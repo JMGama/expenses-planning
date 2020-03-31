@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MonthExpensesCard } from "../MonthExpensesCard";
+import { useUser } from '../../context/user-context'
+
 
 
 import Row from "react-bootstrap/Row";
@@ -15,6 +17,8 @@ export const MonthCard = ({ monthData, active }) => {
     const [incomes, setIncomes] = useState(null)
     const [outcomes, setOutcomes] = useState(null)
     const [date, setDate] = useState()
+    const userContext = useUser()
+
 
     const getMonthData = (monthData) => {
         const date = new Date(monthData.year, monthData.monthNumber - 1)
@@ -24,7 +28,8 @@ export const MonthCard = ({ monthData, active }) => {
             {
                 method: "GET",
                 headers: {
-                    Accept: "application/json"
+                    Accept: "application/json",
+                    Authorization: 'Bearer ' + userContext.token
                 }
             })
             .then(res => {
