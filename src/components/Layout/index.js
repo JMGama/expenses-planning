@@ -9,6 +9,7 @@ import { Month } from "../../pages/Month";
 import { NotFound } from "../../pages/NotFound";
 import { Login } from "../../components/Login";
 import { SignUp } from "../../components/SignUp";
+import { useUser } from '../../context/user-context'
 
 
 import Container from "react-bootstrap/Container";
@@ -55,30 +56,42 @@ const Layout = props => {
 // )
 
 export const LayoutRouter = ({ match }) => {
-  return (
-    <Switch>
-      <Redirect exact from="/" to="/home" />
-      <Route
-        exact
-        path={'/home'}
-        render={() => (
-          <Layout>
-            <Home />
-          </Layout>
-        )}
-      />
-      <Route
-        exact
-        path={'/month'}
-        render={() => (
-          <Layout>
-            <Month />
-          </Layout>
-        )}
-      />
-      <Route exact path={'/login'} component={Login} />
-      <Route exact path={'/signup'} component={SignUp} />
-      <Route component={NotFound} />
-    </Switch>
-  );
-};
+  const userContext = useUser()
+
+  console.log(userContext.user)
+
+  if (userContext.user.id == null && (userContext.token === false || !localStorage.getItem('authToken'))) {
+    return <Login></Login>
+  }
+  else if (userContext.user.id == null && localStorage.getItem('authToken')) {
+    return <div></div>
+  }
+  else {
+    return (
+      <Switch>
+        <Redirect exact from="/" to="/home" />
+        <Route
+          exact
+          path={'/home'}
+          render={() => (
+            <Layout>
+              <Home />
+            </Layout>
+          )}
+        />
+        <Route
+          exact
+          path={'/month'}
+          render={() => (
+            <Layout>
+              <Month />
+            </Layout>
+          )}
+        />
+        <Route exact path={'/login'} component={Login} />
+        <Route exact path={'/signup'} component={SignUp} />
+        <Route component={NotFound} />
+      </Switch>
+    );
+  };
+}

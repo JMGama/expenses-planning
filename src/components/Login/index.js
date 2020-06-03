@@ -6,7 +6,6 @@ import { Redirect } from "react-router-dom";
 
 export const Login = () => {
 	const userContext = useUser()
-	const [logged, setLogged] = useState(false)
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -30,14 +29,14 @@ export const Login = () => {
 				res.json().then(response => {
 					userContext.setUser(response.user)
 					userContext.setToken(response.token)
-					setLogged(true)
+					// Save token in the local storage
+					localStorage.setItem('authToken', response.token)
 				})
 			}
 		})
 	}
-	if (logged) {
-		return <Redirect to="/home" />
-	}
+
+
 
 	return (
 		<div style={{ "justifyContent": "center", "alignItems": "center", "minHeight": "100vh", "display": "flex" }}>
@@ -73,4 +72,7 @@ export const Login = () => {
 			</div>
 		</div>
 	);
+
+
+
 };
