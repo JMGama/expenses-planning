@@ -16,7 +16,6 @@ exports.loginUser = (req, res) => {
 
     User.getUserByEmail(req.body.email, (err, data) => {
 
-        console.log(data)
         if (err) {
             res.status(500).send({
                 message: err.message || 'Some error ocurred while getting the login user.'
@@ -38,7 +37,6 @@ exports.loginUser = (req, res) => {
                         firstName: data.firstName,
                         lastName: data.lastName
                     }
-                    console.log(process.env.JWT_SECRET)
                     const token = jwt.sign(payload, process.env.JWT_SECRET, {
                         expiresIn: '24h'
                     });
@@ -113,4 +111,22 @@ exports.newUser = (req, res) => {
     })
 
 
+}
+
+exports.getUserDataWithToken = (req, res) => {
+
+    if (!req.authData) {
+        res.status(404).send({
+            message: 'Invalid Token.'
+        })
+    }
+    else {
+        const response = {
+            id: req.authData.id,
+            email: req.authData.email,
+            firstName: req.authData.firstName,
+            lastName: req.authData.lastName
+        }
+        res.send(response)
+    }
 }
